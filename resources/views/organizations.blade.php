@@ -21,6 +21,7 @@
     		<td><a href="{{ action('OrganizationController@delete', $organization->id) }}">Delete</a></td>
    </tr>
 @endforeach
+<tr><td colspan="100%" align="right"><a href="{{ action('OrganizationController@create') }}">Add</a></td></tr>
 </table>
 
 @stop

@@ -4,6 +4,7 @@ namespace Care\Http\Controllers;
 
 use DB;
 use Care\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Redirect;
 
 class OrganizationController extends Controller
 {
@@ -40,7 +41,7 @@ class OrganizationController extends Controller
 
     public function delete()
     {
-        return view('organizations');
+        return Redirect::action('OrganizationController@home');
     }
 
     public function handleCreate()
@@ -50,7 +51,7 @@ class OrganizationController extends Controller
 		$org->long_name = Input::get('longname');
 		$org->save();
 
-        return Redirect::action('GamesController@index');
+        return Redirect::action('OrganizationController@index');
     }
 
     public function handleEdit()
