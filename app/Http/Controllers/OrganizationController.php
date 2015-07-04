@@ -45,8 +45,8 @@ class OrganizationController extends Controller
     public function handleCreate()
     {
 		$org = new Organization;
-		$org->short_name = Input::get('shortName');
-		$org->long_name = Input::get('longName');
+		$org->short_name = Input::get('shortname');
+		$org->long_name = Input::get('longname');
 		$org->save();
 
         return Redirect::action('GamesController@index');
