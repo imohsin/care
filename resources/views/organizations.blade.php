@@ -17,8 +17,8 @@
     		<td>{{ $organization->companies }}</td>
     		<td>{{ $organization->contacts }}</td>
     		<td>{{ $organization->smtpHost }}</td>
-    		<td><a href="">Edit</a></td>
-    		<td><a href="">Delete</a></td>
+    		<td><a href="{{ action('OrganizationController@edit', $organization->id) }}">Edit</a></td>
+    		<td><a href="{{ action('OrganizationController@delete', $organization->id) }}">Delete</a></td>
    </tr>
 @endforeach
 </table>

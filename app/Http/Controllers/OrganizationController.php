@@ -20,7 +20,8 @@ class OrganizationController extends Controller
 		            ->join('opancart_info', 'organization.id', '=', 'opancart_info.organization_id')
 		            ->join('smtp_info', 'organization.id', '=', 'smtp_info.organization_id')
 		            ->leftJoin('contact', 'company.id', '=', 'contact.company_id')
-		            ->select('organization.*',  DB::raw('count(distinct company.id) as companies'),  'opancart_info.host as ocHost', 'smtp_info.host as smtpHost', DB::raw('count(contact.id) as contacts'))
+		            ->select('organization.*',  DB::raw('count(distinct company.id) as companies'),
+		            	'opancart_info.host as ocHost', 'smtp_info.host as smtpHost', DB::raw('count(contact.id) as contacts'))
             		->orderBy('organization.long_name')
             		->get();
 
