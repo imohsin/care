@@ -586,7 +586,7 @@ CREATE TABLE IF NOT EXISTS `opancart_info` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `organization_id` int(11) NOT NULL,
   `driver` varchar(100) NOT NULL,
-  `hostname` varchar(100) NOT NULL,
+  `host` varchar(100) NOT NULL,
   `username` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
   `database` varchar(100) NOT NULL,
@@ -600,7 +600,7 @@ CREATE TABLE IF NOT EXISTS `opancart_info` (
 -- Dumping data for table `opancart_info`
 --
 
-INSERT INTO `opancart_info` (`id`, `organization_id`, `driver`, `hostname`, `username`, `password`, `database`, `prefix`) VALUES
+INSERT INTO `opancart_info` (`id`, `organization_id`, `driver`, `host`, `username`, `password`, `database`, `prefix`) VALUES
 (1, 1, 'mysqli', 'localhost', 'sean3691_mysql', 'test', 'sean3691_v3', 'atm_');
 
 -- --------------------------------------------------------

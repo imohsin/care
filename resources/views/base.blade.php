@@ -18,6 +18,7 @@
     	<td height="700">{{--menu--}}
 			<p/>
 			<a href="{{ url('/') }}">Dashboard</a><p/>
+			<a href="{{ route('organizations') }}">Organizations</a><p/>
 			<a href="{{ route('coupons') }}">Coupons</a><p/>
 			<a href="{{ route('deliveries') }}">Deliveries</a><p/>
 			<a href="{{ route('returns') }}">Returns</a><p/>

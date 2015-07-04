@@ -15,6 +15,27 @@ Route::get('/', function () {
     return view('dashboard');
 });
 
+Route::get('organizations', array(
+    'as' => 'organizations',
+    'uses' => 'OrganizationController@home',
+    function() {
+        return View::make('organizations');
+    }
+));
+
+Route::group(array('prefix' => 'organizations'), function()
+{
+	Route::get('/create', 'OrganizationController@create');
+	Route::get('/edit/{org}', 'OrganizationController@edit');
+	Route::get('/delete/{org}', 'OrganizationController@delete');
+
+	// Handle form submissions.
+	Route::post('/create', 'OrganizationController@handleCreate');
+	Route::post('/edit', 'OrganizationController@handleEdit');
+	Route::post('/delete', 'OrganizationController@handleDelete');
+
+});
+
 Route::get('coupons', array(
     'as' => 'coupons',
     function() {
