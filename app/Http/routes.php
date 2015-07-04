@@ -38,10 +38,24 @@ Route::group(array('prefix' => 'organizations'), function()
 
 Route::get('coupons', array(
     'as' => 'coupons',
+    'uses' => 'CouponController@home',
     function() {
         return View::make('coupons');
     }
 ));
+
+Route::group(array('prefix' => 'coupons'), function()
+{
+	Route::get('/create', 'CouponController@create');
+	Route::get('/edit/{org}', 'CouponController@edit');
+	Route::get('/delete/{org}', 'CouponController@delete');
+
+	// Handle form submissions.
+	Route::post('/create', 'CouponController@handleCreate');
+	Route::post('/edit', 'CouponController@handleEdit');
+	Route::post('/delete', 'CouponController@handleDelete');
+
+});
 
 Route::get('deliveries', array(
     'as' => 'deliveries',

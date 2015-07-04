@@ -3,6 +3,7 @@
 
 @section('body')
 
+<h3>Organizations</h3>
 <table  cellpadding="10" border="1">
 <tr><td>Name</td>
 	<td>OpenCart Info</td>
