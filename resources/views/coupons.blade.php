@@ -56,8 +56,8 @@
 		<td>{{ $deal->product_id }}</td>
 		<td>{{ $deal->deal_number }}</td>
 		<td>{{ $deal->deal_price }}</td>
-		<td><a href="{{ action('CouponController@edit', ['id' => $coupon->campaign_id,'code' => $coupon->coupon_code]) }}">Edit</a></td>
-		<td><a href="{{ action('CouponController@delete', ['id' => $coupon->campaign_id,'code' => $coupon->coupon_code]) }}">Delete</a></td>
+		<td><a href="{{ action('CouponController@edit', $deal->id) }}">Edit</a></td>
+		<td><a href="{{ action('CouponController@delete', $deal->id) }}">Delete</a></td>
    </tr>
 @endforeach
 <tr><td colspan="100%" align="right"><a href="{{ action('CouponController@create') }}">Add</a></td></tr>
@@ -84,13 +84,45 @@
 		<td>{{ $campaign->campaign_start_date }}</td>
 		<td>{{ $campaign->campaign_end_date }}</td>
 		<td>{{ $campaign->deal_provider_commission }}</td>
-		<td><a href="{{ action('CouponController@edit', ['id' => $coupon->campaign_id,'code' => $coupon->coupon_code]) }}">Edit</a></td>
-		<td><a href="{{ action('CouponController@delete', ['id' => $coupon->campaign_id,'code' => $coupon->coupon_code]) }}">Delete</a></td>
+		<td><a href="{{ action('CouponController@edit', $campaign->id) }}">Edit</a></td>
+		<td><a href="{{ action('CouponController@delete', $campaign->id) }}">Delete</a></td>
    </tr>
 @endforeach
 <tr><td colspan="100%" align="right"><a href="{{ action('CouponController@create') }}">Add</a></td></tr>
 </table>
 
 </td></tr></table>
+
+<h3>Redemptions</h3>
+<table  cellpadding="10" border="1">
+<tr><td>Id</td>
+    <td>Deal Provider Id</td>
+	<td>Shop Id</td>
+	<td>Payment Made</td>
+	<td>Payment Amount</td>
+	<td>Payment Date</td>
+	<td>Payment Account Id</td>
+	<td>Payment Verified By Id</td>
+	<td>Report Csv File</td>
+	<td>Redemption Date</td>
+	<td>{{--edit--}}</td>
+	<td>{{--delete--}}</td></tr>
+@foreach ($redemptions as $redemption)
+   <tr><td>{{ $redemption->id }}</td>
+		<td>{{ $redemption->deal_provider_id }}</td>
+		<td>{{ $redemption->shop_id }}</td>
+		<td>{{ $redemption->payment_made }}</td>
+		<td>{{ $redemption->payment_amount }}</td>
+		<td>{{ $redemption->payment_date }}</td>
+		<td>{{ $redemption->payment_account_id }}</td>
+		<td>{{ $redemption->payment_verified_by_id }}</td>
+		<td>{{ $redemption->report_csv_file }}</td>
+		<td>{{ $redemption->redemption_date }}</td>
+		<td><a href="{{ action('CouponController@edit', $redemption->id) }}">Edit</a></td>
+		<td><a href="{{ action('CouponController@delete', $redemption->id) }}">Delete</a></td>
+   </tr>
+@endforeach
+<tr><td colspan="100%" align="right"><a href="{{ action('CouponController@create') }}">Add</a></td></tr>
+</table>
 
 @stop
