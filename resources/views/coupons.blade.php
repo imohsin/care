@@ -15,7 +15,7 @@
 	<td>Start</td>
 	<td>Expiry</td>
 	<td>Condition</td>
-	<td>Coupon_redeemed</td>
+	<td>Coupon Redeemed</td>
 	<td>Coupon Date Redeemed</td>
 	<td>{{--edit--}}</td>
 	<td>{{--delete--}}</td></tr>
@@ -34,10 +34,63 @@
 		<td>{{ $coupon->coupon_redeemed }}</td>
 		<td>{{ $coupon->coupon_date_redeemed }}</td>
 		<td><a href="{{ action('CouponController@edit', ['id' => $coupon->campaign_id,'code' => $coupon->coupon_code]) }}">Edit</a></td>
-		<td><a href="{{ action('CouponController@delete', $coupon->campaign_id) }}">Delete</a></td>
+		<td><a href="{{ action('CouponController@delete', ['id' => $coupon->campaign_id,'code' => $coupon->coupon_code]) }}">Delete</a></td>
    </tr>
 @endforeach
 <tr><td colspan="100%" align="right"><a href="{{ action('CouponController@create') }}">Add</a></td></tr>
 </table>
+
+{{-- deals and campaigns --}}
+<table><tr><td>
+
+<h3>Deals</h3>
+<table  cellpadding="10" border="1">
+<tr><td>Id</td>
+    <td>Product Id</td>
+	<td>Deal Number</td>
+	<td>Deal Price</td>
+	<td>{{--edit--}}</td>
+	<td>{{--delete--}}</td></tr>
+@foreach ($deals as $deal)
+   <tr><td>{{ $deal->id }}</td>
+		<td>{{ $deal->product_id }}</td>
+		<td>{{ $deal->deal_number }}</td>
+		<td>{{ $deal->deal_price }}</td>
+		<td><a href="{{ action('CouponController@edit', ['id' => $coupon->campaign_id,'code' => $coupon->coupon_code]) }}">Edit</a></td>
+		<td><a href="{{ action('CouponController@delete', ['id' => $coupon->campaign_id,'code' => $coupon->coupon_code]) }}">Delete</a></td>
+   </tr>
+@endforeach
+<tr><td colspan="100%" align="right"><a href="{{ action('CouponController@create') }}">Add</a></td></tr>
+</table>
+
+</td><td width="100">&nbsp;</td><td>
+
+<h3>Campaigns</h3>
+<table  cellpadding="10" border="1">
+<tr><td>Id</td>
+    <td>Deal Provider Id</td>
+	<td>Shop Id</td>
+	<td>Campaign Reference</td>
+	<td>Campaign Start Date</td>
+	<td>Campaign End Date</td>
+	<td>Deal Provider Commission</td>
+	<td>{{--edit--}}</td>
+	<td>{{--delete--}}</td></tr>
+@foreach ($campaigns as $campaign)
+   <tr><td>{{ $campaign->id }}</td>
+		<td>{{ $campaign->deal_provider_id }}</td>
+		<td>{{ $campaign->shop_id }}</td>
+		<td>{{ $campaign->campaign_reference }}</td>
+		<td>{{ $campaign->campaign_start_date }}</td>
+		<td>{{ $campaign->campaign_end_date }}</td>
+		<td>{{ $campaign->deal_provider_commission }}</td>
+		<td><a href="{{ action('CouponController@edit', ['id' => $coupon->campaign_id,'code' => $coupon->coupon_code]) }}">Edit</a></td>
+		<td><a href="{{ action('CouponController@delete', ['id' => $coupon->campaign_id,'code' => $coupon->coupon_code]) }}">Delete</a></td>
+   </tr>
+@endforeach
+<tr><td colspan="100%" align="right"><a href="{{ action('CouponController@create') }}">Add</a></td></tr>
+</table>
+
+</td></tr></table>
 
 @stop

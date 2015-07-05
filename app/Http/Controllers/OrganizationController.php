@@ -17,13 +17,26 @@ class OrganizationController extends Controller
     {
         //$organizations = DB::select('select * from organization where expired = ?', [0]);
 		$organizations = DB::table('organization')
-		            ->join('company', 'organization.id', '=', 'company.organization_id')
-		            ->join('opancart_info', 'organization.id', '=', 'opancart_info.organization_id')
-		            ->join('smtp_info', 'organization.id', '=', 'smtp_info.organization_id')
-		            ->leftJoin('contact', 'company.id', '=', 'contact.company_id')
-		            ->select('organization.*',  DB::raw('count(distinct company.id) as companies'),
+					->join('company', function ($joincompany) {
+						$joincompany->on('organization.id', '=', 'company.organization_id')
+							 ->where('company.expired', '=', 0);
+					})
+					->join('opancart_info', function ($joinocinfo) {
+						$joinocinfo->on('organization.id', '=', 'opancart_info.organization_id')
+							 ->where('opancart_info.expired', '=', 0);
+					})
+					->join('smtp_info', function ($joinsmtpinfo) {
+						$joinsmtpinfo->on('organization.id', '=', 'smtp_info.organization_id')
+							 ->where('smtp_info.expired', '=', 0);
+					})
+					->leftJoin('contact', function ($joincontact) {
+						$joincontact->on('company.id', '=', 'contact.company_id')
+							 ->where('contact.expired', '=', 0);
+					})
+			        ->select('organization.*',  DB::raw('count(distinct company.id) as companies'),
 		            	'opancart_info.host as ocHost', 'smtp_info.host as smtpHost', DB::raw('count(contact.id) as contacts'))
-            		->orderBy('organization.long_name')
+		            ->where('organization.expired', '=', 0)
+		            ->orderBy('organization.long_name')
             		->get();
 
         return view('organizations', ['organizations' => $organizations]);
