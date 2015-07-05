@@ -8,9 +8,9 @@
     @show
 </head>
 <body>
-    <table border="1" width="90%">
+    <table border="1" width="1300">
     <tr height="120">
-    	<td width="150">{{--logo--}}
+    	<td width="120">{{--logo--}}
     		<center><H1>CARE</H1></center></td>
     	<td>{{--header--}}</td>
     </tr>
