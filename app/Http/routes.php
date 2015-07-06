@@ -47,8 +47,8 @@ Route::get('coupons', array(
 Route::group(array('prefix' => 'coupons'), function()
 {
 	Route::get('/create', 'CouponController@create');
-	Route::get('/edit/{org}', 'CouponController@edit');
-	Route::get('/delete/{org}', 'CouponController@delete');
+	Route::get('/edit/{coupon}', 'CouponController@edit');
+	Route::get('/delete/{coupon}', 'CouponController@delete');
 
 	// Handle form submissions.
 	Route::post('/create', 'CouponController@handleCreate');
@@ -56,6 +56,20 @@ Route::group(array('prefix' => 'coupons'), function()
 	Route::post('/delete', 'CouponController@handleDelete');
 
 });
+
+Route::group(array('prefix' => 'deals'), function()
+{
+	Route::get('/create', 'DealController@create');
+	Route::get('/edit/{deal}', 'DealController@edit');
+	Route::get('/delete/{deal}', 'DealController@delete');
+
+	// Handle form submissions.
+	Route::post('/create', 'DealController@handleCreate');
+	Route::post('/edit', 'DealController@handleEdit');
+	Route::post('/delete', 'DealController@handleDelete');
+
+});
+
 
 Route::get('deliveries', array(
     'as' => 'deliveries',

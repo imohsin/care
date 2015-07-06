@@ -56,11 +56,11 @@
 		<td>{{ $deal->product_id }}</td>
 		<td>{{ $deal->deal_number }}</td>
 		<td>{{ $deal->deal_price }}</td>
-		<td><a href="{{ action('CouponController@edit', $deal->id) }}">Edit</a></td>
-		<td><a href="{{ action('CouponController@delete', $deal->id) }}">Delete</a></td>
+		<td><a href="{{ action('DealController@edit', $deal->id) }}">Edit</a></td>
+		<td><a href="{{ action('DealController@delete', $deal->id) }}">Delete</a></td>
    </tr>
 @endforeach
-<tr><td colspan="100%" align="right"><a href="{{ action('CouponController@create') }}">Add</a></td></tr>
+<tr><td colspan="100%" align="right"><a href="{{ action('DealController@create') }}">Add</a></td></tr>
 </table>
 
 </td><td width="100">&nbsp;</td><td>
