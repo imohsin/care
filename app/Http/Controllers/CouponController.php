@@ -13,7 +13,7 @@ class CouponController extends Controller
      *
      * @return Response
      */
-    public function home()
+    public function index()
     {
 		$coupons = DB::table('coupon')
 		            ->select('coupon.*')
@@ -51,16 +51,11 @@ class CouponController extends Controller
 
     public function delete()
     {
-        return Redirect::action('CouponController@home');
+        return Redirect::action('CouponController@index');
     }
 
     public function handleCreate()
     {
-		$org = new Organization;
-		$org->short_name = Input::get('shortname');
-		$org->long_name = Input::get('longname');
-		$org->save();
-
         return Redirect::action('CouponController@index');
     }
 

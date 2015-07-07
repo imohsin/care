@@ -13,7 +13,7 @@ class OrganizationController extends Controller
      *
      * @return Response
      */
-    public function home()
+    public function index()
     {
         //$organizations = DB::select('select * from organization where expired = ?', [0]);
 		$organizations = DB::table('organization')
@@ -54,7 +54,7 @@ class OrganizationController extends Controller
 
     public function delete()
     {
-        return Redirect::action('OrganizationController@home');
+        return Redirect::action('OrganizationController@index');
     }
 
     public function handleCreate()

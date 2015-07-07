@@ -17,7 +17,7 @@ Route::get('/', function () {
 
 Route::get('organizations', array(
     'as' => 'organizations',
-    'uses' => 'OrganizationController@home',
+    'uses' => 'OrganizationController@index',
     function() {
         return View::make('organizations');
     }
@@ -26,8 +26,8 @@ Route::get('organizations', array(
 Route::group(array('prefix' => 'organizations'), function()
 {
 	Route::get('/create', 'OrganizationController@create');
-	Route::get('/edit/{org}', 'OrganizationController@edit');
-	Route::get('/delete/{org}', 'OrganizationController@delete');
+	Route::get('/edit/{id}', 'OrganizationController@edit');
+	Route::get('/delete/{id}', 'OrganizationController@delete');
 
 	// Handle form submissions.
 	Route::post('/create', 'OrganizationController@handleCreate');
@@ -38,7 +38,7 @@ Route::group(array('prefix' => 'organizations'), function()
 
 Route::get('coupons', array(
     'as' => 'coupons',
-    'uses' => 'CouponController@home',
+    'uses' => 'CouponController@index',
     function() {
         return View::make('coupons');
     }
@@ -47,8 +47,8 @@ Route::get('coupons', array(
 Route::group(array('prefix' => 'coupons'), function()
 {
 	Route::get('/create', 'CouponController@create');
-	Route::get('/edit/{coupon}', 'CouponController@edit');
-	Route::get('/delete/{coupon}', 'CouponController@delete');
+	Route::get('/edit/{id}', 'CouponController@edit');
+	Route::get('/delete/{id}', 'CouponController@delete');
 
 	// Handle form submissions.
 	Route::post('/create', 'CouponController@handleCreate');
@@ -60,8 +60,8 @@ Route::group(array('prefix' => 'coupons'), function()
 Route::group(array('prefix' => 'deals'), function()
 {
 	Route::get('/create', 'DealController@create');
-	Route::get('/edit/{deal}', 'DealController@edit');
-	Route::get('/delete/{deal}', 'DealController@delete');
+	Route::get('/edit/{id}', 'DealController@edit');
+	Route::get('/delete/{id}', 'DealController@delete');
 
 	// Handle form submissions.
 	Route::post('/create', 'DealController@handleCreate');
