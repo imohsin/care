@@ -84,11 +84,11 @@
 		<td>{{ $campaign->campaign_start_date }}</td>
 		<td>{{ $campaign->campaign_end_date }}</td>
 		<td>{{ $campaign->deal_provider_commission }}</td>
-		<td><a href="{{ action('CouponController@edit', $campaign->id) }}">Edit</a></td>
-		<td><a href="{{ action('CouponController@delete', $campaign->id) }}">Delete</a></td>
+		<td><a href="{{ action('CampaignController@edit', $campaign->id) }}">Edit</a></td>
+		<td><a href="{{ action('CampaignController@delete', $campaign->id) }}">Delete</a></td>
    </tr>
 @endforeach
-<tr><td colspan="100%" align="right"><a href="{{ action('CouponController@create') }}">Add</a></td></tr>
+<tr><td colspan="100%" align="right"><a href="{{ action('CampaignController@create') }}">Add</a></td></tr>
 </table>
 
 </td></tr></table>

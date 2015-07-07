@@ -70,6 +70,18 @@ Route::group(array('prefix' => 'deals'), function()
 
 });
 
+Route::group(array('prefix' => 'campaigns'), function()
+{
+	Route::get('/create', 'CampaignController@create');
+	Route::get('/edit/{id}', 'CampaignController@edit');
+	Route::get('/delete/{id}', 'CampaignController@delete');
+
+	// Handle form submissions.
+	Route::post('/create', 'CampaignController@handleCreate');
+	Route::post('/edit', 'CampaignController@handleEdit');
+	Route::post('/delete', 'CampaignController@handleDelete');
+
+});
 
 Route::get('deliveries', array(
     'as' => 'deliveries',

@@ -49,8 +49,12 @@ class CouponController extends Controller
         return view('coupons');
     }
 
-    public function delete()
+    public function delete($id)
     {
+		DB::table('coupon')
+            ->where('id', $id)
+            ->update(['expired' => 1]
+        );
         return Redirect::action('CouponController@index');
     }
 
