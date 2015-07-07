@@ -21,8 +21,9 @@ class DealController extends Controller
         return view('deal', ['deal' => $deal]);
     }
 
-    public function delete()
+    public function delete($id)
     {
+		DB::table('deal')->where('id',$id)->delete();
         return Redirect::action('CouponController@index');
     }
 
@@ -42,11 +43,6 @@ class DealController extends Controller
             ->update(['product_id' => Input::get('product_id'),'deal_number' => Input::get('product_id'),'deal_price' => Input::get('deal_price')]
         );
         return Redirect::action('DealController@edit', Input::get('id'));
-    }
-
-    public function handleDelete()
-    {
-        return Redirect::action('CouponController@index');
     }
 
 }
