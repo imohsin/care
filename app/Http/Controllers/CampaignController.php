@@ -34,7 +34,8 @@ class CampaignController extends Controller
     {
 
 		DB::table('campaign')->insert(
-		    ['product_id' => Input::get('product_id'),'deal_number' => Input::get('product_id'),'deal_price' => Input::get('deal_price')]
+		    ['deal_provider_id' => Input::get('deal_provider_id'),'shop_id' => Input::get('shop_id'),'campaign_reference' => Input::get('campaign_reference')
+		    ,'campaign_start_date' => Input::get('campaign_start_date'),'campaign_end_date' => Input::get('campaign_end_date'),'deal_provider_commission' => Input::get('deal_provider_commission')]
 		);
         return Redirect::action('CouponController@index');
     }
@@ -43,7 +44,9 @@ class CampaignController extends Controller
     {
 		DB::table('campaign')
             ->where('id', Input::get('id'))
-            ->update(['product_id' => Input::get('product_id'),'deal_number' => Input::get('product_id'),'deal_price' => Input::get('deal_price')]
+            ->update(
+				['deal_provider_id' => Input::get('deal_provider_id'),'shop_id' => Input::get('shop_id'),'campaign_reference' => Input::get('campaign_reference')
+		        ,'campaign_start_date' => Input::get('campaign_start_date'),'campaign_end_date' => Input::get('campaign_end_date'),'deal_provider_commission' => Input::get('deal_provider_commission')]
         );
         return Redirect::action('CampaignController@edit', Input::get('id'));
     }
