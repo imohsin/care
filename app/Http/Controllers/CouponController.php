@@ -41,18 +41,20 @@ class CouponController extends Controller
 
     public function create()
     {
-        return view('coupons');
+        return view('coupon');
     }
 
-    public function edit()
+    public function edit($id, $code)
     {
-        return view('coupons');
+		$coupon = DB::table('coupon')->where('campaign_id',$id)->where('coupon_code',$code)->first();
+        return view('coupon', ['coupon' => $coupon]);
     }
 
-    public function delete($id)
+    public function delete($id, $code)
     {
 		DB::table('coupon')
-            ->where('id', $id)
+            ->where('campaign_id', $id)
+            ->where('coupon_code', $code)
             ->update(['expired' => 1]
         );
         return Redirect::action('CouponController@index');
@@ -60,17 +62,24 @@ class CouponController extends Controller
 
     public function handleCreate()
     {
+
+		DB::table('coupon')->insert(
+		    ['deal_provider_id' => Input::get('deal_provider_id'),'shop_id' => Input::get('shop_id'),'campaign_reference' => Input::get('campaign_reference')
+		    ,'campaign_start_date' => Input::get('campaign_start_date'),'campaign_end_date' => Input::get('campaign_end_date'),'deal_provider_commission' => Input::get('deal_provider_commission')]
+		);
         return Redirect::action('CouponController@index');
     }
 
     public function handleEdit()
     {
-        return view('coupons');
-    }
-
-    public function handleDelete()
-    {
-        return view('coupons');
+		DB::table('coupon')
+            ->where('campaign_id', Input::get('id'))
+            ->where('coupon_code', Input::get('code'))
+            ->update(
+				['deal_provider_id' => Input::get('deal_provider_id'),'shop_id' => Input::get('shop_id'),'campaign_reference' => Input::get('campaign_reference')
+		        ,'campaign_start_date' => Input::get('campaign_start_date'),'campaign_end_date' => Input::get('campaign_end_date'),'deal_provider_commission' => Input::get('deal_provider_commission')]
+        );
+        return Redirect::action('CampaignController@edit', array(Input::get('id'), Input::get('code')));
     }
 
 }

@@ -47,8 +47,8 @@ Route::get('coupons', array(
 Route::group(array('prefix' => 'coupons'), function()
 {
 	Route::get('/create', 'CouponController@create');
-	Route::get('/edit/{id}', 'CouponController@edit');
-	Route::get('/delete/{id}', 'CouponController@delete');
+	Route::get('/edit/{id}/{code}', 'CouponController@edit');
+	Route::get('/delete/{id}/{code}', 'CouponController@delete');
 
 	// Handle form submissions.
 	Route::post('/create', 'CouponController@handleCreate');

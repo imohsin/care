@@ -3,7 +3,7 @@
 
 @section('body')
 
-<h3>Deal</h3>
+<h3>Campaign</h3>
 <table  cellpadding="10" border="1">
 <tr><td colspan="2" align="right"><a href="{{ action('CouponController@index') }}">Back</a></td></tr>
 
