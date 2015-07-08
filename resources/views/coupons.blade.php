@@ -118,11 +118,11 @@
 		<td>{{ $redemption->payment_verified_by_id }}</td>
 		<td>{{ $redemption->report_csv_file }}</td>
 		<td>{{ $redemption->redemption_date }}</td>
-		<td><a href="{{ action('CouponController@edit', $redemption->id) }}">Edit</a></td>
-		<td><a href="{{ action('CouponController@delete', $redemption->id) }}">Delete</a></td>
+		<td><a href="{{ action('RedemptionController@edit', $redemption->id) }}">Edit</a></td>
+		<td><a href="{{ action('RedemptionController@delete', $redemption->id) }}">Delete</a></td>
    </tr>
 @endforeach
-<tr><td colspan="100%" align="right"><a href="{{ action('CouponController@create') }}">Add</a></td></tr>
+<tr><td colspan="100%" align="right"><a href="{{ action('RedemptionController@create') }}">Add</a></td></tr>
 </table>
 
 @stop

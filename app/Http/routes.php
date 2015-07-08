@@ -79,6 +79,18 @@ Route::group(array('prefix' => 'campaigns'), function()
 	Route::post('/delete', 'CampaignController@handleDelete');
 });
 
+Route::group(array('prefix' => 'redemptions'), function()
+{
+	Route::get('/create', 'RedemptionController@create');
+	Route::get('/edit/{id}', 'RedemptionController@edit');
+	Route::get('/delete/{id}', 'RedemptionController@delete');
+
+	// Handle form submissions.
+	Route::post('/create', 'RedemptionController@handleCreate');
+	Route::post('/edit', 'RedemptionController@handleEdit');
+	Route::post('/delete', 'RedemptionController@handleDelete');
+});
+
 Route::get('deliveries', array(
     'as' => 'deliveries',
     'uses' => 'DeliveryController@index',
