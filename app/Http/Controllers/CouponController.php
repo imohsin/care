@@ -3,6 +3,7 @@
 namespace Care\Http\Controllers;
 
 use DB;
+use Input;
 use Care\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 
@@ -62,10 +63,12 @@ class CouponController extends Controller
 
     public function handleCreate()
     {
-
 		DB::table('coupon')->insert(
-		    ['deal_provider_id' => Input::get('deal_provider_id'),'shop_id' => Input::get('shop_id'),'campaign_reference' => Input::get('campaign_reference')
-		    ,'campaign_start_date' => Input::get('campaign_start_date'),'campaign_end_date' => Input::get('campaign_end_date'),'deal_provider_commission' => Input::get('deal_provider_commission')]
+		    ['campaign_id' => Input::get('campaign_id'),'coupon_code' => Input::get('coupon_code'),'value' => Input::get('value')
+		    ,'is_percentage' => Input::get('is_percentage'),'use_once' => Input::get('use_once'),'is_used' => Input::get('is_used')
+		    ,'active' => Input::get('active'),'every_product' => Input::get('every_product'),'start' => Input::get('start')
+		    ,'expiry' => Input::get('expiry'),'condition' => Input::get('condition'),'coupon_redeemed' => Input::get('coupon_redeemed')
+		    ,'coupon_date_redeemed' => Input::get('coupon_date_redeemed')]
 		);
         return Redirect::action('CouponController@index');
     }
@@ -76,10 +79,13 @@ class CouponController extends Controller
             ->where('campaign_id', Input::get('id'))
             ->where('coupon_code', Input::get('code'))
             ->update(
-				['deal_provider_id' => Input::get('deal_provider_id'),'shop_id' => Input::get('shop_id'),'campaign_reference' => Input::get('campaign_reference')
-		        ,'campaign_start_date' => Input::get('campaign_start_date'),'campaign_end_date' => Input::get('campaign_end_date'),'deal_provider_commission' => Input::get('deal_provider_commission')]
-        );
-        return Redirect::action('CampaignController@edit', array(Input::get('id'), Input::get('code')));
+		    ['campaign_id' => Input::get('campaign_id'),'coupon_code' => Input::get('coupon_code'),'value' => Input::get('value')
+		    ,'is_percentage' => Input::get('is_percentage'),'use_once' => Input::get('use_once'),'is_used' => Input::get('is_used')
+		    ,'active' => Input::get('active'),'every_product' => Input::get('every_product'),'start' => Input::get('start')
+		    ,'expiry' => Input::get('expiry'),'condition' => Input::get('condition'),'coupon_redeemed' => Input::get('coupon_redeemed')
+		    ,'coupon_date_redeemed' => Input::get('coupon_date_redeemed')]
+		);
+        return Redirect::action('CouponController@edit', array(Input::get('id'), Input::get('code')));
     }
 
 }
