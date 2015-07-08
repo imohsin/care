@@ -33,7 +33,6 @@ Route::group(array('prefix' => 'organizations'), function()
 	Route::post('/create', 'OrganizationController@handleCreate');
 	Route::post('/edit', 'OrganizationController@handleEdit');
 	Route::post('/delete', 'OrganizationController@handleDelete');
-
 });
 
 Route::get('coupons', array(
@@ -54,7 +53,6 @@ Route::group(array('prefix' => 'coupons'), function()
 	Route::post('/create', 'CouponController@handleCreate');
 	Route::post('/edit', 'CouponController@handleEdit');
 	Route::post('/delete', 'CouponController@handleDelete');
-
 });
 
 Route::group(array('prefix' => 'deals'), function()
@@ -67,7 +65,6 @@ Route::group(array('prefix' => 'deals'), function()
 	Route::post('/create', 'DealController@handleCreate');
 	Route::post('/edit', 'DealController@handleEdit');
 	Route::post('/delete', 'DealController@handleDelete');
-
 });
 
 Route::group(array('prefix' => 'campaigns'), function()
@@ -80,15 +77,27 @@ Route::group(array('prefix' => 'campaigns'), function()
 	Route::post('/create', 'CampaignController@handleCreate');
 	Route::post('/edit', 'CampaignController@handleEdit');
 	Route::post('/delete', 'CampaignController@handleDelete');
-
 });
 
 Route::get('deliveries', array(
     'as' => 'deliveries',
+    'uses' => 'DeliveryController@index',
     function() {
         return View::make('deliveries');
     }
 ));
+
+Route::group(array('prefix' => 'deliveries'), function()
+{
+	Route::get('/create', 'DeliveryController@create');
+	Route::get('/edit/{id}', 'DeliveryController@edit');
+	Route::get('/delete/{id}', 'DeliveryController@delete');
+
+	// Handle form submissions.
+	Route::post('/create', 'DeliveryController@handleCreate');
+	Route::post('/edit', 'DeliveryController@handleEdit');
+	Route::post('/delete', 'DeliveryController@handleDelete');
+});
 
 Route::get('returns', array(
     'as' => 'returns',
