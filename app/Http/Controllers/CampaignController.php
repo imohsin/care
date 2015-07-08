@@ -17,8 +17,8 @@ class CampaignController extends Controller
 
     public function edit($id)
     {
-		$deal = DB::table('campaign')->where('id',$id)->first();
-        return view('campaign', ['campaign' => $deal]);
+		$campaign = DB::table('campaign')->where('id',$id)->first();
+        return view('campaign', ['campaign' => $campaign]);
     }
 
     public function delete($id)

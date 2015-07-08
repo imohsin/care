@@ -8,7 +8,7 @@
     @show
 </head>
 <body>
-    <table border="1" width="1300">
+    <table border="1" width="1400">
     <tr height="120">
     	<td width="120">{{--logo--}}
     		<center><H1>CARE</H1></center></td>

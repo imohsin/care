@@ -47,33 +47,45 @@ class OrganizationController extends Controller
         return view('organizations');
     }
 
-    public function edit()
+    public function edit($id)
     {
-        return view('organizations');
+		$organization = DB::table('organization')->where('id',$id)->first();
+        return view('organization', ['organization' => $organization]);
     }
 
-    public function delete()
+    public function delete($id)
     {
+ 		DB::table('organization')
+             ->where('id', $id)
+             ->update(['expired' => 1]
+         );
         return Redirect::action('OrganizationController@index');
     }
 
     public function handleCreate()
     {
-		$org = new Organization;
-		$org->short_name = Input::get('shortname');
-		$org->long_name = Input::get('longname');
-		$org->save();
-
+		DB::table('organization')->insert(
+		    ['campaign_id' => Input::get('campaign_id'),'coupon_code' => Input::get('coupon_code'),'value' => Input::get('value')
+		    ,'is_percentage' => Input::get('is_percentage'),'use_once' => Input::get('use_once'),'is_used' => Input::get('is_used')
+		    ,'active' => Input::get('active'),'every_product' => Input::get('every_product'),'start' => Input::get('start')
+		    ,'expiry' => Input::get('expiry'),'condition' => Input::get('condition'),'coupon_redeemed' => Input::get('coupon_redeemed')
+		    ,'coupon_date_redeemed' => Input::get('coupon_date_redeemed')]
+		);
         return Redirect::action('OrganizationController@index');
     }
 
     public function handleEdit()
     {
-        return view('organizations');
+		DB::table('organization')
+            ->where('id', Input::get('id'))
+            ->update(
+		    ['campaign_id' => Input::get('campaign_id'),'coupon_code' => Input::get('coupon_code'),'value' => Input::get('value')
+		    ,'is_percentage' => Input::get('is_percentage'),'use_once' => Input::get('use_once'),'is_used' => Input::get('is_used')
+		    ,'active' => Input::get('active'),'every_product' => Input::get('every_product'),'start' => Input::get('start')
+		    ,'expiry' => Input::get('expiry'),'condition' => Input::get('condition'),'coupon_redeemed' => Input::get('coupon_redeemed')
+		    ,'coupon_date_redeemed' => Input::get('coupon_date_redeemed')]
+		);
+        return Redirect::action('OrganizationController@edit', Input::get('id'));
     }
 
-    public function handleDelete()
-    {
-        return view('organizations');
-    }
 }
