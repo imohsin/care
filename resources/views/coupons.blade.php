@@ -1,8 +1,8 @@
 @extends('base')
 
-@section('body')
+@section('title', 'Coupons')
 
-<h1 class="page-header">Coupons</h1>
+@section('body')
 
 <div class="table-responsive col-sm-12 col-md-12">
   <table class="table table-striped">

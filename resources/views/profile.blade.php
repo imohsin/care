@@ -1,8 +1,8 @@
 
 @extends('base')
 
-@section('body')
+@section('title', 'Profile')
 
-<h1 class="page-header">Profile</h1>
+@section('body')
 
 @stop

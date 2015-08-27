@@ -1,9 +1,9 @@
 
 @extends('base')
 
-@section('body')
+@section('title', 'Deliveries')
 
-<h1 class="page-header">Deliveries</h1>
+@section('body')
 
 <div class="table-responsive">
   <table class="table table-striped">

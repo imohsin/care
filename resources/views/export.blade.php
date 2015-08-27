@@ -1,8 +1,8 @@
 
 @extends('base')
 
-@section('body')
+@section('title', 'Export')
 
-<h1 class="page-header">Export</h1>
+@section('body')
 
 @stop

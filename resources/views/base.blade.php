@@ -8,7 +8,7 @@
     <meta name="author" content="Cloud MSD">
     <link rel="icon" href="{{ asset('favicon.ico') }}">
 
-    <title>CARE</title>
+    <title>CARE @yield('title')</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
@@ -73,9 +73,8 @@
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-
+          <h1 class="page-header">@yield('title')</h1>
           @yield('body')
-
         </div>
       </div>
     </div>
