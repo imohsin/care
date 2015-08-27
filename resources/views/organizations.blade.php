@@ -3,28 +3,42 @@
 
 @section('body')
 
-<h3>Organizations</h3>
-<table  cellpadding="10" border="1">
-<tr><td>Name</td>
-	<td>OpenCart Info</td>
-	<td>Shops</td>
-	<td>Contacts</td>
-	<td>Smtp Info</td>
-	<td>{{--edit--}}</td>
-	<td>{{--delete--}}</td></tr>
-@foreach ($organizations as $organization)
-	@if (isset($organization->id))
-   <tr><td>{{ $organization->long_name }}</td>
-    		<td>{{ $organization->ocHost }}</td>
-    		<td>{{ $organization->companies }}</td>
-    		<td>{{ $organization->contacts }}</td>
-    		<td>{{ $organization->smtpHost }}</td>
-    		<td><a href="{{ action('OrganizationController@edit', $organization->id) }}">Edit</a></td>
-    		<td><a href="{{ action('OrganizationController@delete', $organization->id) }}">Delete</a></td>
-   </tr>
-   @endif
-@endforeach
-<tr><td colspan="100%" align="right"><a href="{{ action('OrganizationController@create') }}">Add</a></td></tr>
-</table>
+<h1 class="page-header">Organizations</h1>
 
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>OpenCart Info</th>
+        <th>Shops</th>
+        <th>Contacts</th>
+        <th>SMTP Info</th>
+        <th>{{--edit--}}</th>
+        <th>{{--delete--}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      @foreach ($organizations as $organization)
+        @if (isset($organization->id))
+          <tr>
+            <td>{{ $organization->long_name }}</td>
+            <td>{{ $organization->ocHost }}</td>
+            <td>{{ $organization->companies }}</td>
+            <td>{{ $organization->contacts }}</td>
+            <td>{{ $organization->smtpHost }}</td>
+            <td><a href="{{ action('OrganizationController@edit', $organization->id) }}">Edit</a></td>
+            <td><a href="{{ action('OrganizationController@delete', $organization->id) }}">Delete</a></td>
+          </tr>
+        @endif
+      @endforeach
+    </tbody>
+    <tfooter>
+      <tr>
+        <td colspan="100%" align="right"><a href="{{ action('OrganizationController@create') }}">Add</a></td>
+      </tr>
+    </tfooter>
+  </table>
+</div>
+    
 @stop

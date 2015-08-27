@@ -15,6 +15,27 @@ Route::get('/', function () {
     return view('dashboard');
 });
 
+Route::get('settings', array(
+    'as' => 'settings',
+    function() {
+        return View::make('settings');
+    }
+));
+
+Route::get('profile', array(
+    'as' => 'profile',
+    function() {
+        return View::make('profile');
+    }
+));
+
+Route::get('help', array(
+    'as' => 'help',
+    function() {
+        return View::make('help');
+    }
+));
+
 Route::get('organizations', array(
     'as' => 'organizations',
     'uses' => 'OrganizationController@index',

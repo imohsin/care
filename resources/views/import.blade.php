@@ -3,6 +3,6 @@
 
 @section('body')
 
-<center>import...</center>
+<h1 class="page-header">Import</h1>
 
 @stop

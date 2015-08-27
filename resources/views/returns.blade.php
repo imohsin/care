@@ -3,6 +3,6 @@
 
 @section('body')
 
-<center>returns...</center>
+<h1 class="page-header">Returns</h1>
 
 @stop

@@ -3,6 +3,6 @@
 
 @section('body')
 
-<h1 class="page-header">Dashboard</h1>
+<h1 class="page-header">Help</h1>
 
 @stop

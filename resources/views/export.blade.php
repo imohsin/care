@@ -3,6 +3,6 @@
 
 @section('body')
 
-<center>export...</center>
+<h1 class="page-header">Export</h1>
 
 @stop
