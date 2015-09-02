@@ -4,7 +4,7 @@
 @section('body')
 
 <h2>Campaign</h2>
-<a href="{{ action('CampaignController@index') }}">Back</a>
+<a href="{{ action('CouponController@index') }}">Back</a>
 <div class="table-responsive">
 	<table class="table table-striped">
 		<tbody>
