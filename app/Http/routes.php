@@ -24,16 +24,21 @@ Route::group(array('prefix' => 'auth'), function()
 {
 	// Authentication routes...
 	Route::get('/login', 'Auth\AuthController@login');
-	Route::get('/logout', 'Auth\AuthController@logout');
 	// Registration routes...
 	Route::get('/register', 'Auth\AuthController@register');
 
 	// Authentication routes...
 	Route::post('/login', 'Auth\AuthController@handleLogin');
-	Route::post('/logout', 'Auth\AuthController@handleLogout');
 	// Registration routes...
 	Route::post('/register', 'Auth\AuthController@handleRegister');
 
+	//Logout - the Auth\AuthController@logout is buggy...redirects to 'home' and does not logout
+	Route::get('/logout', function() {
+	    Auth::logout();
+	    Session::forget('user');
+	    Session::flush();
+	    return Redirect::to('/');
+	});
 });
 
 Route::get('/', array(
@@ -46,6 +51,7 @@ Route::get('/', array(
 Route::get('organizations', array(
     'as' => 'organizations',
     'uses' => 'OrganizationController@index',
+    'middleware' => 'auth',
     function() {
         return View::make('organizations');
     }
@@ -66,12 +72,13 @@ Route::group(array('prefix' => 'organizations'), function()
 Route::get('coupons', array(
     'as' => 'coupons',
     'uses' => 'CouponController@index',
+    'middleware' => 'auth',
     function() {
         return View::make('coupons');
     }
 ));
 
-Route::group(array('prefix' => 'coupons'), function()
+Route::group(array('prefix' => 'coupons', 'middleware' => 'auth'), function()
 {
 	Route::get('/create', 'CouponController@create');
 	Route::get('/edit/{id}/{code}', 'CouponController@edit');
@@ -83,7 +90,7 @@ Route::group(array('prefix' => 'coupons'), function()
 	Route::post('/delete', 'CouponController@handleDelete');
 });
 
-Route::group(array('prefix' => 'deals'), function()
+Route::group(array('prefix' => 'deals', 'middleware' => 'auth'), function()
 {
 	Route::get('/create', 'DealController@create');
 	Route::get('/edit/{id}', 'DealController@edit');
@@ -95,7 +102,7 @@ Route::group(array('prefix' => 'deals'), function()
 	Route::post('/delete', 'DealController@handleDelete');
 });
 
-Route::group(array('prefix' => 'campaigns'), function()
+Route::group(array('prefix' => 'campaigns', 'middleware' => 'auth'), function()
 {
 	Route::get('/create', 'CampaignController@create');
 	Route::get('/edit/{id}', 'CampaignController@edit');
@@ -107,7 +114,7 @@ Route::group(array('prefix' => 'campaigns'), function()
 	Route::post('/delete', 'CampaignController@handleDelete');
 });
 
-Route::group(array('prefix' => 'redemptions'), function()
+Route::group(array('prefix' => 'redemptions', 'middleware' => 'auth'), function()
 {
 	Route::get('/create', 'RedemptionController@create');
 	Route::get('/edit/{id}', 'RedemptionController@edit');
@@ -122,6 +129,7 @@ Route::group(array('prefix' => 'redemptions'), function()
 Route::get('deliveries', array(
     'as' => 'deliveries',
     'uses' => 'DeliveryController@index',
+    'middleware' => 'auth',
     function() {
         return View::make('deliveries');
     }
@@ -141,6 +149,7 @@ Route::group(array('prefix' => 'deliveries'), function()
 
 Route::get('returns', array(
     'as' => 'returns',
+    'middleware' => 'auth',
     function() {
         return View::make('returns');
     }
@@ -148,6 +157,7 @@ Route::get('returns', array(
 
 Route::get('enquiries', array(
     'as' => 'enquiries',
+    'middleware' => 'auth',
     function() {
         return View::make('enquiries');
     }
@@ -155,6 +165,7 @@ Route::get('enquiries', array(
 
 Route::get('import', array(
     'as' => 'import',
+    'middleware' => 'auth',
     function() {
         return View::make('import');
     }
@@ -162,6 +173,7 @@ Route::get('import', array(
 
 Route::get('export', array(
     'as' => 'export',
+    'middleware' => 'auth',
     function() {
         return View::make('export');
     }
@@ -169,6 +181,7 @@ Route::get('export', array(
 
 Route::get('settings', array(
     'as' => 'settings',
+    'middleware' => 'auth',
     function() {
         return View::make('settings');
     }
@@ -176,6 +189,7 @@ Route::get('settings', array(
 
 Route::get('profile', array(
     'as' => 'profile',
+    'middleware' => 'auth',
     function() {
         return View::make('profile');
     }
@@ -187,6 +201,3 @@ Route::get('help', array(
         return View::make('help');
     }
 ));
-
-Route::get('/contacts', 'ContactController@index');
-

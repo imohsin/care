@@ -65,11 +65,17 @@ class AuthController extends Controller
         ]);
     }
 
+	/*
+	* GET Login
+	*/
     public function login()
     {
 		return view('auth.login');
 	}
 
+	/*
+	* POST Login
+	*/
     public function handleLogin()
     {
 		//hash password if unhashed
@@ -78,7 +84,7 @@ class AuthController extends Controller
 		//echo('password after = ' . $encrypted . '<br/>');
 		//echo('done');
 
-		if (Auth::attempt(array('email' => Input::get('email'), 'password' => Input::get('password')), true))
+		if (Auth::attempt(array('email' => Input::get('email'), 'password' => Input::get('password')), Input::get('remember')))
 		{
 			return redirect('/');
 		} else {
@@ -87,4 +93,17 @@ class AuthController extends Controller
     	    ]);
 		}
 	}
+
+	public function logout()
+	{
+		echo('logout func');
+		Auth::logout($this);
+	}
+
+	public function handleLogout()
+	{
+		echo('handlelogout func');
+		Auth::logout($this);
+	}
+
 }
