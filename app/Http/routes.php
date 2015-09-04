@@ -11,29 +11,36 @@
 |
 */
 
-Route::get('/', function () {
-    return view('dashboard');
+//user authentication
+Route::get('auth', array(
+    'as' => 'auth',
+    'uses' => 'Auth\AuthController@index',
+    function() {
+        return View::make('auth');
+    }
+));
+
+Route::group(array('prefix' => 'auth'), function()
+{
+	// Authentication routes...
+	Route::get('/login', 'Auth\AuthController@login');
+	Route::get('/logout', 'Auth\AuthController@logout');
+	// Registration routes...
+	Route::get('/register', 'Auth\AuthController@register');
+
+	// Authentication routes...
+	Route::post('/login', 'Auth\AuthController@handleLogin');
+	Route::post('/logout', 'Auth\AuthController@handleLogout');
+	// Registration routes...
+	Route::post('/register', 'Auth\AuthController@handleRegister');
+
 });
 
-Route::get('settings', array(
-    'as' => 'settings',
-    function() {
-        return View::make('settings');
-    }
-));
-
-Route::get('profile', array(
-    'as' => 'profile',
-    function() {
-        return View::make('profile');
-    }
-));
-
-Route::get('help', array(
-    'as' => 'help',
-    function() {
-        return View::make('help');
-    }
+Route::get('/', array(
+	'middleware' => 'auth',
+	function () {
+    	return view('dashboard');
+	}
 ));
 
 Route::get('organizations', array(
@@ -157,6 +164,27 @@ Route::get('export', array(
     'as' => 'export',
     function() {
         return View::make('export');
+    }
+));
+
+Route::get('settings', array(
+    'as' => 'settings',
+    function() {
+        return View::make('settings');
+    }
+));
+
+Route::get('profile', array(
+    'as' => 'profile',
+    function() {
+        return View::make('profile');
+    }
+));
+
+Route::get('help', array(
+    'as' => 'help',
+    function() {
+        return View::make('help');
     }
 ));
 

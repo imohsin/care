@@ -4,6 +4,9 @@ namespace Care\Http\Controllers\Auth;
 
 use Care\User;
 use Validator;
+use Auth;
+use Input;
+use Hash;
 use Care\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
@@ -61,4 +64,27 @@ class AuthController extends Controller
             'password' => bcrypt($data['password']),
         ]);
     }
+
+    public function login()
+    {
+		return view('auth.login');
+	}
+
+    public function handleLogin()
+    {
+		//hash password if unhashed
+		//echo('password before = ' . Input::get('password') . '<br/>');
+		//$encrypted = Hash::make(Input::get('password'));
+		//echo('password after = ' . $encrypted . '<br/>');
+		//echo('done');
+
+		if (Auth::attempt(array('email' => Input::get('email'), 'password' => Input::get('password')), true))
+		{
+			return redirect('/');
+		} else {
+			return redirect('/auth/login')->withErrors([
+		            'email' => 'The credentials you entered did not match our records. Try again?',
+    	    ]);
+		}
+	}
 }

@@ -25,6 +25,26 @@ USE `care`;
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `users`
+--
+
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL UNIQUE,
+  `password` varchar(100) NOT NULL,
+  `remember_token` varchar(100) DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `expired` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+INSERT INTO `users` (`name`, `email`, `password`) VALUES
+('imran mohsin', 'imran.mohsin@gmail.com', 'imohsin');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `address`
 --
 

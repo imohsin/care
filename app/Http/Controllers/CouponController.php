@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\Redirect;
 
 class CouponController extends Controller
 {
+	//auth required
+	public function __construct()
+	{
+	    $this->middleware('auth');
+	}
+
     /**
      * Show a list of all of the coupons.
      *
