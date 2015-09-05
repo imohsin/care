@@ -7,6 +7,7 @@ use Validator;
 use Auth;
 use Input;
 use Hash;
+use DB;
 use Care\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
@@ -47,6 +48,7 @@ class AuthController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed|min:6',
+            'password_confirmation' => 'required|min:6',
         ]);
     }
 
@@ -94,16 +96,40 @@ class AuthController extends Controller
 		}
 	}
 
-	public function logout()
+	/*
+	* GET Register
+	*/
+	public function register()
 	{
-		echo('logout func');
-		Auth::logout($this);
+		return view('auth.register');
 	}
 
-	public function handleLogout()
-	{
-		echo('handlelogout func');
-		Auth::logout($this);
+	/*
+	* POST Register
+	*/
+    public function handleRegister()
+    {
+		//validate input
+		$validation = $this->validator(array('name' => Input::get('name'),'email' => Input::get('email'),
+								'password' => Input::get('password'),'password_confirmation' => Input::get('password_confirmation')));
+		if($validation->fails()) {
+			return redirect('/auth/register')->withInput()->withErrors($validation);
+		}
+
+		//create user
+		$user = $this->create(array('name' => Input::get('name'),
+								'email' => Input::get('email'),
+								'password' => Input::get('password')));
+		if(!$user) {
+			return redirect('/auth/register')->withInput()->withErrors([
+					            'name' => 'The registration was unsuccessful.  Try again?',
+    	    ]);
+		} else {
+			Auth::login($user);
+			return redirect('/');
+		}
+
+
 	}
 
 }

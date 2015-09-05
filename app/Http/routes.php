@@ -41,7 +41,17 @@ Route::group(array('prefix' => 'auth'), function()
 	});
 });
 
+//dashboard
 Route::get('/', array(
+	'middleware' => 'auth',
+	function () {
+    	return view('dashboard');
+	}
+));
+
+//the OOTB Auth\AuthController tends to redirect to 'home' - so we make this the dashboard
+Route::get('home', array(
+	'as' => 'home',
 	'middleware' => 'auth',
 	function () {
     	return view('dashboard');
@@ -57,7 +67,7 @@ Route::get('organizations', array(
     }
 ));
 
-Route::group(array('prefix' => 'organizations'), function()
+Route::group(array('prefix' => 'organizations', 'middleware' => 'auth'), function()
 {
 	Route::get('/create', 'OrganizationController@create');
 	Route::get('/edit/{id}', 'OrganizationController@edit');
@@ -135,7 +145,7 @@ Route::get('deliveries', array(
     }
 ));
 
-Route::group(array('prefix' => 'deliveries'), function()
+Route::group(array('prefix' => 'deliveries', 'middleware' => 'auth'), function()
 {
 	Route::get('/create', 'DeliveryController@create');
 	Route::get('/edit/{id}', 'DeliveryController@edit');
