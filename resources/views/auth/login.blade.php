@@ -21,6 +21,8 @@
 
 <tr><td colspan="2" align="right">
 		<button type="submit">Login</button>
+		<div>&nbsp;</div>
+		<div><a href="#">Forgot Password?</a> | <a href="register">Not Registered?</a></div>
 </td></tr>
 <?php echo Form::close(); ?>
 
