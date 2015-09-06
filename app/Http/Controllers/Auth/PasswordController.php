@@ -2,6 +2,8 @@
 
 namespace Care\Http\Controllers\Auth;
 
+use View;
+use Input;
 use Care\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
@@ -29,4 +31,18 @@ class PasswordController extends Controller
     {
         $this->middleware('guest');
     }
+
+	//reset form
+	public function remind()
+	{
+		return View::make('/auth/password');
+	}
+
+	//send email
+	public function request()
+	{
+	  $credentials = array('email' => Input::get('email'), 'password' => Input::get('password'));
+
+	  return $this->remind($credentials);
+	}
 }

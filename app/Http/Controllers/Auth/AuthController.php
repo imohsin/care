@@ -8,6 +8,7 @@ use Auth;
 use Input;
 use Hash;
 use DB;
+use Redirect;
 use Care\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
@@ -88,9 +89,9 @@ class AuthController extends Controller
 
 		if (Auth::attempt(array('email' => Input::get('email'), 'password' => Input::get('password')), Input::get('remember')))
 		{
-			return redirect('/');
+			return Redirect::intended('/');
 		} else {
-			return redirect('/auth/login')->withErrors([
+			return Redirect::to('/auth/login')->withErrors([
 		            'email' => 'The credentials you entered did not match our records. Try again?',
     	    ]);
 		}
@@ -121,12 +122,12 @@ class AuthController extends Controller
 								'email' => Input::get('email'),
 								'password' => Input::get('password')));
 		if(!$user) {
-			return redirect('/auth/register')->withInput()->withErrors([
+			return Redirect::to('/auth/register')->withInput()->withErrors([
 					            'name' => 'The registration was unsuccessful.  Try again?',
     	    ]);
 		} else {
 			Auth::login($user);
-			return redirect('/');
+			return Redirect::intended('/');
 		}
 
 

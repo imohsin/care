@@ -22,16 +22,12 @@ Route::get('auth', array(
 
 Route::group(array('prefix' => 'auth'), function()
 {
-	// Authentication routes...
+	// Authentication
 	Route::get('/login', 'Auth\AuthController@login');
-	// Registration routes...
+	// Registration
 	Route::get('/register', 'Auth\AuthController@register');
-
-	// Authentication routes...
-	Route::post('/login', 'Auth\AuthController@handleLogin');
-	// Registration routes...
-	Route::post('/register', 'Auth\AuthController@handleRegister');
-
+	// Password reset
+	Route::get('/reset', 'Auth\PasswordController@remind');
 	//Logout - the Auth\AuthController@logout is buggy...redirects to 'home' and does not logout
 	Route::get('/logout', function() {
 	    Auth::logout();
@@ -39,6 +35,16 @@ Route::group(array('prefix' => 'auth'), function()
 	    Session::flush();
 	    return Redirect::to('/');
 	});
+
+	// Authentication
+	Route::post('/login', 'Auth\AuthController@handleLogin');
+	// Registration
+	Route::post('/register', 'Auth\AuthController@handleRegister');
+	// Password reset
+	Route::post('/reset', array(
+	  'uses' => 'Auth\PasswordController@request',
+	  'as' => 'password.request'
+	));
 });
 
 //dashboard
