@@ -4,6 +4,8 @@ namespace Care\Http\Controllers\Auth;
 
 use View;
 use Input;
+use Redirect;
+use Password;
 use Care\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
@@ -39,10 +41,15 @@ class PasswordController extends Controller
 	}
 
 	//send email
-	public function request()
+	public function handleRemind()
 	{
-	  $credentials = array('email' => Input::get('email'), 'password' => Input::get('password'));
+		switch (Password::sendResetLink(Input::only('email')))
+		{
+		  case Password::INVALID_USER:
+			return Redirect::back()->withErrors(['reason' => 'User does not exist.  Try again?']);
 
-	  return $this->remind($credentials);
+		  case Password::RESET_LINK_SENT:
+			return Redirect::back()->with('success', 'reset token sent');
+		}
 	}
 }

@@ -41,10 +41,7 @@ Route::group(array('prefix' => 'auth'), function()
 	// Registration
 	Route::post('/register', 'Auth\AuthController@handleRegister');
 	// Password reset
-	Route::post('/reset', array(
-	  'uses' => 'Auth\PasswordController@request',
-	  'as' => 'password.request'
-	));
+	Route::post('/reset', 'Auth\PasswordController@handleRemind');
 });
 
 //dashboard

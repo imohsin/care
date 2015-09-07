@@ -14,13 +14,8 @@ return [
     |
     */
 
-    'mailgun' => [
-        'domain' => '',
-        'secret' => '',
-    ],
-
     'mandrill' => [
-        'secret' => '',
+        'secret' => 'M1o6CxYjpE-JyC_Sn-lBiA',
     ],
 
     'ses' => [

@@ -3,16 +3,14 @@
 
 @section('body')
 
-@if (Session::has('error'))
-  {{ trans(Session::get('reason')) }}
-@elseif (Session::has('success'))
+@if (Session::has('success'))
   An email with the password reset has been sent.
 @endif
 
 <h3>Password Reset</h3>
 <table  cellpadding="10" border="1">
 
-<?php echo Form::open(array('route' => 'password.request')); ?>
+<?php echo Form::open(array('action' => 'Auth\PasswordController@handleRemind')); ?>
 <?php echo Form::token(); ?>
 @foreach ($errors->all() as $message)
 
