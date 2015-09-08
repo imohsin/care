@@ -78,12 +78,6 @@ class PasswordController extends Controller
 
 		switch ($response)
 		{
-		  /*case Password::INVALID_USER:
-			return Redirect::back()->withErrors(['reason' => 'User does not exist.  Try again?']);
-		  case Password::INVALID_PASSWORD:
-			return Redirect::back()->withErrors(['reason' => 'Invalid password.  Try again?']);
-		  case Password::INVALID_TOKEN:
-			return Redirect::back()->withErrors(['reason' => 'Invalid token.  Try again?']);*/
 		  case Password::INVALID_PASSWORD:
 		  case Password::INVALID_TOKEN:
 		  case Password::INVALID_USER:
