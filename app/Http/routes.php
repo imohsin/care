@@ -27,7 +27,7 @@ Route::group(array('prefix' => 'auth'), function()
 	// Registration
 	Route::get('/register', 'Auth\AuthController@register');
 	// Password reset
-	Route::get('/reset', 'Auth\PasswordController@remind');
+	//Route::get('/reset', 'Auth\PasswordController@remind');
 	//Logout - the Auth\AuthController@logout is buggy...redirects to 'home' and does not logout
 	Route::get('/logout', function() {
 	    Auth::logout();
@@ -41,8 +41,29 @@ Route::group(array('prefix' => 'auth'), function()
 	// Registration
 	Route::post('/register', 'Auth\AuthController@handleRegister');
 	// Password reset
-	Route::post('/reset', 'Auth\PasswordController@handleRemind');
+	//Route::post('/reset', 'Auth\PasswordController@handleRemind');
 });
+
+//password reset
+Route::get('password', array(
+    'as' => 'password',
+    'uses' => 'Auth\PasswordController@index',
+    function() {
+        return View::make('password');
+    }
+));
+
+Route::group(array('prefix' => 'password'), function()
+{
+	Route::get('/email', 'Auth\PasswordController@remind');
+	Route::post('/email', 'Auth\PasswordController@handleRemind');
+
+	// Password reset routes...
+	Route::get('/reset', 'Auth\PasswordController@reset');
+	Route::get('/reset/{token}', 'Auth\PasswordController@reset');
+	Route::post('/reset', 'Auth\PasswordController@handleReset');
+});
+
 
 //dashboard
 Route::get('/', array(

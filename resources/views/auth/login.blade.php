@@ -22,7 +22,7 @@
 <tr><td colspan="2" align="right">
 		<button type="submit">Login</button>
 		<div>&nbsp;</div>
-		<div><a href="reset">Forgot Password?</a> | <a href="register">Not Registered?</a></div>
+		<div><a href="{{ action('Auth\PasswordController@remind') }}">Forgot Password?</a> | <a href="register">Not Registered?</a></div>
 </td></tr>
 <?php echo Form::close(); ?>
 
