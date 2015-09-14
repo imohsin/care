@@ -471,11 +471,13 @@ CREATE TABLE IF NOT EXISTS `coupon` (
 
 CREATE TABLE IF NOT EXISTS `deal` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `company_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `deal_number` varchar(15) NOT NULL,
   `deal_price` double NOT NULL,
   `expired` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
+  KEY `company_id` (`company_id`),
   KEY `product_id` (`product_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
@@ -614,10 +616,10 @@ INSERT INTO `note_type` (`id`, `type`, `sort_order`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `opancart_info`
+-- Table structure for table `opencart_info`
 --
 
-CREATE TABLE IF NOT EXISTS `opancart_info` (
+CREATE TABLE IF NOT EXISTS `opencart_info` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `organization_id` int(11) NOT NULL,
   `driver` varchar(100) NOT NULL,
@@ -632,10 +634,10 @@ CREATE TABLE IF NOT EXISTS `opancart_info` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
 
 --
--- Dumping data for table `opancart_info`
+-- Dumping data for table `opencart_info`
 --
 
-INSERT INTO `opancart_info` (`id`, `organization_id`, `driver`, `host`, `username`, `password`, `database`, `prefix`) VALUES
+INSERT INTO `opencart_info` (`id`, `organization_id`, `driver`, `host`, `username`, `password`, `database`, `prefix`) VALUES
 (1, 1, 'mysqli', 'localhost', 'sean3691_mysql', 'test', 'sean3691_v3', 'atm_');
 
 -- --------------------------------------------------------
@@ -801,10 +803,10 @@ ALTER TABLE `note`
   ADD CONSTRAINT `note_ibfk_1` FOREIGN KEY (`note_type_id`) REFERENCES `note_type` (`id`);
 
 --
--- Constraints for table `opancart_info`
+-- Constraints for table `opencart_info`
 --
-ALTER TABLE `opancart_info`
-  ADD CONSTRAINT `opancart_info_ibfk_1` FOREIGN KEY (`organization_id`) REFERENCES `organization` (`id`);
+ALTER TABLE `opencart_info`
+  ADD CONSTRAINT `opencart_info_ibfk_1` FOREIGN KEY (`organization_id`) REFERENCES `organization` (`id`);
 
 --
 -- Constraints for table `redemption_item`
@@ -826,7 +828,7 @@ ALTER TABLE `smtp_info`
   ADD CONSTRAINT `smtp_info_ibfk_1` FOREIGN KEY (`organization_id`) REFERENCES `organization` (`id`);
 
 -- remove before handing over to 3rd party
-UPDATE opancart_info set password = 'mysql@147' where id = 1;
+UPDATE opencart_info set password = 'mysql@147' where id = 1;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -93,9 +93,23 @@ Route::get('organizations', array(
 
 Route::group(array('prefix' => 'organizations', 'middleware' => 'auth'), function()
 {
+	//organization
 	Route::get('/create', 'OrganizationController@create');
 	Route::get('/edit/{id}', 'OrganizationController@edit');
 	Route::get('/delete/{id}', 'OrganizationController@delete');
+	//company
+	Route::get('/create/company', 'CompanyController@create');
+	Route::get('/edit/company/{id}', 'CompanyController@edit');
+	Route::get('/delete/company/{id}', 'CompanyController@delete');
+	//opencart
+	Route::get('/create/opencart', 'OpencartInfoController@create');
+	Route::get('/edit/opencart/{id}', 'OpencartInfoController@edit');
+	Route::get('/delete/opencart/{id}', 'OpencartInfoController@delete');
+	//smtp
+	Route::get('/create/smtpinfo', 'SmtpInfoController@create');
+	Route::get('/edit/smtpinfo/{id}', 'SmtpInfoController@edit');
+	Route::get('/delete/smtpinfo/{id}', 'SmtpInfoController@delete');
+
 
 	// Handle form submissions.
 	Route::post('/create', 'OrganizationController@handleCreate');
