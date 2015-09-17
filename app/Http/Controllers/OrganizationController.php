@@ -74,10 +74,10 @@ class OrganizationController extends Controller
 
     public function handleCreate()
     {
-		DB::table('organization')->insert(
+		$id = DB::table('organization')->insertGetId(
 		    ['short_name' => Input::get('short_name'),'long_name' => Input::get('long_name')]
 		);
-        return Redirect::action('OrganizationController@index');
+        return Redirect::action('OrganizationController@edit', $id);
     }
 
     public function handleEdit()

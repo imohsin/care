@@ -12,13 +12,31 @@ class CompanyController extends Controller
 
     public function create()
     {
-        return view('company');
+		$orgs = DB::table('organization')->select('id', 'long_name')
+			->where('organization.expired', '=', 0)
+			->orderBy('organization.long_name')
+			->get();
+		$cotypes = DB::table('company_type')->select('id', 'type')
+			->where('company_type.expired', '=', 0)
+			->orderBy('company_type.type')
+			->get();
+
+        return view('company', ['orgs' => $orgs, 'cotypes' => $cotypes]);
     }
 
     public function edit($id)
     {
 		$company = DB::table('company')->where('id',$id)->first();
-        return view('company', ['company' => $company]);
+		$orgs = DB::table('organization')->select('id', 'long_name')
+		 	->where('organization.expired', '=', 0)
+		 	->orderBy('organization.long_name')
+		 	->get();
+		$cotypes = DB::table('company_type')->select('id', 'type')
+			->where('company_type.expired', '=', 0)
+			->orderBy('company_type.type')
+			->get();
+
+        return view('company', ['company' => $company, 'orgs' => $orgs, 'cotypes' => $cotypes]);
     }
 
     public function delete($id)
@@ -34,10 +52,11 @@ class CompanyController extends Controller
     public function handleCreate()
     {
 
-		DB::table('company')->insert(
+		$id = DB::table('company')->insertGetId(
 		    ['organization_id' => Input::get('organization_id'),'company_type_id' => Input::get('company_type_id'),'name' => Input::get('name')]
 		);
-        return Redirect::action('OrganizationController@index');
+
+        return Redirect::action('CompanyController@edit', $id)->withInput();
     }
 
     public function handleEdit()

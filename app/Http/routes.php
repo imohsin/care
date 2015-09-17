@@ -101,6 +101,11 @@ Route::group(array('prefix' => 'organizations', 'middleware' => 'auth'), functio
 	Route::get('/create/company', 'CompanyController@create');
 	Route::get('/edit/company/{id}', 'CompanyController@edit');
 	Route::get('/delete/company/{id}', 'CompanyController@delete');
+	Route::post('/create/company', 'CompanyController@handleCreate');
+	Route::post('/edit/company/{id}', 'CompanyController@handleEdit');
+	Route::post('/delete/company/{id}', 'CompanyController@handleDelete');
+
+
 	//opencart
 	Route::get('/create/opencart', 'OpencartInfoController@create');
 	Route::get('/edit/opencart/{id}', 'OpencartInfoController@edit');
