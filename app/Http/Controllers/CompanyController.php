@@ -35,8 +35,25 @@ class CompanyController extends Controller
 			->where('company_type.expired', '=', 0)
 			->orderBy('company_type.type')
 			->get();
+		$contacts = DB::table('contact')
+			->where('expired', '=', 0)
+			->where('company_id',$id)
+			->get();
+		$addresses = DB::table('address')
+			->where('expired', '=', 0)
+			->where('company_id',$id)
+			->get();
+		$backoffices = DB::table('company_backoffice')
+			->where('expired', '=', 0)
+			->where('company_id',$id)
+			->get();
+		$deals = DB::table('deal')
+			->where('expired', '=', 0)
+			->where('company_id',$id)
+			->get();
 
-        return view('company', ['company' => $company, 'orgs' => $orgs, 'cotypes' => $cotypes]);
+        return view('company', ['company' => $company, 'orgs' => $orgs, 'cotypes' => $cotypes, 'contacts' => $contacts
+        						, 'addresses' => $addresses, 'backoffices' => $backoffices, 'deals' => $deals]);
     }
 
     public function delete($id, $org)

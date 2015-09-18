@@ -36,7 +36,7 @@
 
 </td>
 <td width="50">&nbsp;</td>
-<td valign="top" width="300">
+<td valign="top" width="400">
 
 @if (isset($organization))
 	<table class="table table-striped">
