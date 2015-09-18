@@ -17,7 +17,7 @@ class OrganizationController extends Controller
     public function index()
     {
         //$organizations = DB::select('select * from organization where expired = ?', [0]);
-		$organizations = DB::table('organization')
+		/*$organizations = DB::table('organization')
 					->leftJoin('company', function ($joincompany) {
 						$joincompany->on('organization.id', '=', 'company.organization_id')
 							 ->where('company.expired', '=', 0);
@@ -38,9 +38,24 @@ class OrganizationController extends Controller
 		            	'opencart_info.host as ocHost', 'smtp_info.host as smtpHost', DB::raw('count(distinct contact.id) as contacts'))
 		            ->where('organization.expired', '=', 0)
 		            ->orderBy('organization.long_name')
+            		->get();*/
+
+		$organizations = DB::table('organization')
+		            ->where('expired', '=', 0)
+            		->orderBy('organization.long_name')
+            		->get();
+		$companies = DB::table('company')
+		            ->where('expired', '=', 0)
+            		->get();
+		$ocInfos = DB::table('opencart_info')
+		            ->where('expired', '=', 0)
+            		->get();
+		$smtpInfos = DB::table('smtp_info')
+		            ->where('expired', '=', 0)
             		->get();
 
-        return view('organizations', ['organizations' => $organizations]);
+        return view('organizations', ['organizations' => $organizations,'companies' => $companies,
+        							'ocInfos' => $ocInfos,'smtpInfos' => $smtpInfos]);
     }
 
     public function create()
@@ -54,9 +69,9 @@ class OrganizationController extends Controller
 		if(is_null($organization)) {
 			return Redirect::action('OrganizationController@index');
 		} else {
-			$companies = DB::table('company')->where('organization_id',$id)->get();
-			$opencartInfos = DB::table('opencart_info')->where('organization_id',$id)->get();
-			$smtpInfos = DB::table('smtp_info')->where('organization_id',$id)->get();
+			$companies = DB::table('company')->where('organization_id',$id)->where('company.expired', '=', 0)->get();
+			$opencartInfos = DB::table('opencart_info')->where('organization_id',$id)->where('opencart_info.expired', '=', 0)->get();
+			$smtpInfos = DB::table('smtp_info')->where('organization_id',$id)->where('smtp_info.expired', '=', 0)->get();
 
 			return view('organization', ['organization' => $organization,'companies' => $companies,
 						'opencartInfos' => $opencartInfos,'smtpInfos' => $smtpInfos,]);

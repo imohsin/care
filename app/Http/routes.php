@@ -97,29 +97,28 @@ Route::group(array('prefix' => 'organizations', 'middleware' => 'auth'), functio
 	Route::get('/create', 'OrganizationController@create');
 	Route::get('/edit/{id}', 'OrganizationController@edit');
 	Route::get('/delete/{id}', 'OrganizationController@delete');
-	//company
-	Route::get('/create/company', 'CompanyController@create');
-	Route::get('/edit/company/{id}', 'CompanyController@edit');
-	Route::get('/delete/company/{id}', 'CompanyController@delete');
-	Route::post('/create/company', 'CompanyController@handleCreate');
-	Route::post('/edit/company/{id}', 'CompanyController@handleEdit');
-	Route::post('/delete/company/{id}', 'CompanyController@handleDelete');
-
-
-	//opencart
-	Route::get('/create/opencart', 'OpencartInfoController@create');
-	Route::get('/edit/opencart/{id}', 'OpencartInfoController@edit');
-	Route::get('/delete/opencart/{id}', 'OpencartInfoController@delete');
-	//smtp
-	Route::get('/create/smtpinfo', 'SmtpInfoController@create');
-	Route::get('/edit/smtpinfo/{id}', 'SmtpInfoController@edit');
-	Route::get('/delete/smtpinfo/{id}', 'SmtpInfoController@delete');
-
-
-	// Handle form submissions.
 	Route::post('/create', 'OrganizationController@handleCreate');
 	Route::post('/edit', 'OrganizationController@handleEdit');
-	Route::post('/delete', 'OrganizationController@handleDelete');
+	//company
+	Route::get('/create/company/{org}', 'CompanyController@create');
+	Route::get('/edit/company/{id}', 'CompanyController@edit');
+	Route::get('/delete/company/{id}/{org}', 'CompanyController@delete');
+	Route::post('/create/company/{org}', 'CompanyController@handleCreate');
+	Route::post('/edit/company/{id}/{org}', 'CompanyController@handleEdit');
+
+	//opencart
+	Route::get('/create/opencart/{org}', 'OpencartInfoController@create');
+	Route::get('/edit/opencart/{id}', 'OpencartInfoController@edit');
+	Route::get('/delete/opencart/{id}/{org}', 'OpencartInfoController@delete');
+	Route::post('/create/opencart/{org}', 'OpencartInfoController@handleCreate');
+	Route::post('/edit/opencart/{id}', 'OpencartInfoController@handleEdit');
+
+	//smtp
+	Route::get('/create/smtpinfo/{org}', 'SmtpInfoController@create');
+	Route::get('/edit/smtpinfo/{id}', 'SmtpInfoController@edit');
+	Route::get('/delete/smtpinfo/{id}/{org}', 'SmtpInfoController@delete');
+	Route::post('/create/smtpinfo/{org}', 'SmtpInfoController@handleCreate');
+	Route::post('/edit/smtpinfo/{id}/{org}', 'SmtpInfoController@handleEdit');
 });
 
 Route::get('coupons', array(
