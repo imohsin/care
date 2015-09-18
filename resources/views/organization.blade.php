@@ -48,7 +48,7 @@
 					  <tr>
 						<td width="100%">{{ $company->name }}</td>
 						<td width="50">&nbsp;</td>
-						<td><a href="{{ action('CompanyController@edit', ['id' => $company->id, 'org' => $organization->id]) }}">Edit</a>&nbsp;</td>
+						<td><a href="{{ action('CompanyController@edit', ['id' => $company->id]) }}">Edit</a>&nbsp;</td>
 						<td><a href="{{ action('CompanyController@delete', ['id' => $company->id, 'org' => $organization->id]) }}">Delete</a></td>
 					  </tr>
 					@endif
@@ -63,7 +63,7 @@
 					  <tr>
 						<td width="100%">{{ $ocInfo->host }}</td>
 						<td width="50">&nbsp;</td>
-						<td><a href="{{ action('OpencartInfoController@edit', ['id' => $ocInfo->id, 'org' => $organization->id]) }}">Edit</a>&nbsp;</td>
+						<td><a href="{{ action('OpencartInfoController@edit', ['id' => $ocInfo->id]) }}">Edit</a>&nbsp;</td>
 						<td><a href="{{ action('OpencartInfoController@delete', ['id' => $ocInfo->id, 'org' => $organization->id]) }}">Delete</a></td>
 					  </tr>
 					@endif
@@ -78,8 +78,8 @@
 					  <tr>
 						<td width="100%">{{ $smtpInfo->host }}</td>
 						<td width="50">&nbsp;</td>
-						<td><a href="{{ action('SmtpInfoController@edit', ['id' => $ocInfo->id, 'org' => $smtpInfo->id]) }}">Edit</a>&nbsp;</td>
-						<td><a href="{{ action('SmtpInfoController@delete', ['id' => $ocInfo->id, 'org' => $smtpInfo->id]) }}">Delete</a></td>
+						<td><a href="{{ action('SmtpInfoController@edit', ['id' => $smtpInfo->id]) }}">Edit</a>&nbsp;</td>
+						<td><a href="{{ action('SmtpInfoController@delete', ['id' => $smtpInfo->id, 'org' => $organization->id]) }}">Delete</a></td>
 					  </tr>
 					@endif
 				  @endforeach

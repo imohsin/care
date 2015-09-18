@@ -10,34 +10,38 @@ use Illuminate\Support\Facades\Redirect;
 class SmtpInfoController extends Controller
 {
 
-    public function create()
+    public function create($org)
     {
-        return view('smtpinfo');
+        return view('smtpinfo',['org' => $org]);
     }
 
     public function edit($id)
     {
 		$smtpinfo = DB::table('smtp_info')->where('id',$id)->first();
-        return view('smtpinfo', ['smtpinfo' => $smtpinfo]);
+		$orgs = DB::table('organization')->select('id', 'long_name')
+		 	->where('organization.expired', '=', 0)
+		 	->orderBy('organization.long_name')
+		 	->get();
+        return view('smtpinfo', ['smtpinfo' => $smtpinfo,'orgs' => $orgs]);
     }
 
-    public function delete($id)
+    public function delete($id, $org)
     {
 		DB::table('smtp_info')
             ->where('id', $id)
             ->update(['expired' => 1]
         );
-        return Redirect::action('OrganizationController@index');
+        return Redirect::action('OrganizationController@edit', $org);
     }
 
     public function handleCreate()
     {
 
-		DB::table('smtp_info')->insert(
+		$id = DB::table('smtp_info')->insertGetId(
 		    ['organization_id' => Input::get('organization_id'),'host' => Input::get('host'),'port' => Input::get('port'),
 		    'username' => Input::get('username'),'password' => Input::get('password')]
 		);
-        return Redirect::action('OrganizationController@index');
+        return Redirect::action('SmtpInfoController@edit', $id);
     }
 
     public function handleEdit()
