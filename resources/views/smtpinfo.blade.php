@@ -55,7 +55,7 @@
 			</tr>
 			<tr>
 				<td><?php echo Form::label('password', 'Password'); ?></td>
-				<td><?php echo Form::text('password', (isset($smtpinfo)) ? $smtpinfo->password : '' ); ?></td>
+				<td><?php echo Form::password('password', ['class' => 'form-control']); ?></td>
 			</tr>
 			<tr>
 				<td colspan="2" align="right">
