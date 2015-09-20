@@ -115,6 +115,7 @@ CREATE TABLE IF NOT EXISTS `communication` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `contact_id` int(11) NOT NULL,
   `communication_type_id` int(11) NOT NULL,
+  `value` varchar(40) NOT NULL ;
   `expired` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `contact_id` (`contact_id`),
@@ -133,6 +134,18 @@ CREATE TABLE IF NOT EXISTS `communication_type` (
   `expired` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `communication_type`
+--
+
+INSERT INTO `communication_type` (`id`, `name`, `expired`) VALUES
+(1, 'Email', 0),
+(2, 'Mobile', 0),
+(3, 'Office', 0),
+(4, 'Fax', 0),
+(5, 'Home', 0),
+(6, 'Other', 0);
 
 -- --------------------------------------------------------
 

@@ -123,6 +123,12 @@ Route::group(array('prefix' => 'organizations', 'middleware' => 'auth'), functio
 	Route::get('/delete/company/contact/{id}/{co}', 'ContactController@delete');
 	Route::post('/create/company/contact', 'ContactController@handleCreate');
 	Route::post('/edit/company/contact/{id}', 'ContactController@handleEdit');
+	//communication
+	Route::get('/create/company/contact/communication/{con}', 'CommunicationController@create');
+	Route::get('/edit/company/contact/communication/{id}', 'CommunicationController@edit');
+	Route::get('/delete/company/contact/communication/{id}/{con}', 'CommunicationController@delete');
+	Route::post('/create/company/contact/communication/', 'CommunicationController@handleCreate');
+	Route::post('/edit/company/contact/communication/{id}', 'CommunicationController@handleEdit');
 	//address
 	Route::get('/create/company/address/{co}', 'AddressController@create');
 	Route::get('/edit/company/address/{id}', 'AddressController@edit');

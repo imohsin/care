@@ -9,7 +9,7 @@
 @elseif (isset($co))
 	<a href="{{ action('CompanyController@edit', $co) }}">Back</a>
 @else
-	<a href="{{ action('CompanyController@index') }}">Back</a>
+	<a href="{{ action('OrganizationController@index') }}">Back</a>
 @endif
 <div class="table-responsive">
 	<table class="table table-striped">

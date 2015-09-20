@@ -4,16 +4,22 @@
 @section('body')
 
 <h2>Contact</h2>
-@if (isset($contact))
-	<a href="{{ action('CompanyController@edit', $contact->company_id) }}">Back</a>
-@elseif (isset($co))
-	<a href="{{ action('CompanyController@edit', $co) }}">Back</a>
-@else
-	<a href="{{ action('CompanyController@index') }}">Back</a>
-@endif
+
+<table><tr><td valign="top">
+
 <div class="table-responsive">
 	<table class="table table-striped">
 		<tbody>
+
+		<tr><td colspan="2" align="right">
+		@if (isset($contact))
+			<a href="{{ action('CompanyController@edit', $contact->company_id) }}">Back</a>
+		@elseif (isset($co))
+			<a href="{{ action('CompanyController@edit', $co) }}">Back</a>
+		@else
+			<a href="{{ action('OrganizationController@index') }}">Back</a>
+		@endif
+		</td></tr>
 
 		@if (isset($contact))
 			<?php echo Form::open(array('action' => 'ContactController@handleEdit')); ?>
@@ -64,5 +70,31 @@
 		</tbody>
 	</table>
 </div>
+
+</td>
+<td width="50">&nbsp;</td>
+<td valign="top" width="400">
+
+@if (isset($company))
+	<table class="table table-striped">
+	<tr><td>
+			<table>
+				  <tr><td colspan="3"><b>Communication</b></td>
+				  <td align="right"><a href="{{ action('CommunicationController@create', ['con' => $contact->id]) }}">Add</a></td></tr>
+				  @foreach ($communications as $communication)
+					  <tr>
+						<td width="100%">{{ $communication->value }}</td>
+						<td width="50">&nbsp;</td>
+						<td><a href="{{ action('CommunicationController@edit', ['id' => $communication->id]) }}">Edit</a>&nbsp;</td>
+						<td><a href="{{ action('CommunicationController@delete', ['id' => $communication->id, 'con' => $contact->id]) }}">Delete</a></td>
+					  </tr>
+				  @endforeach
+			</table>
+	</td></tr>
+	</table>
+@endif
+
+</td></tr>
+</table>
 
 @stop

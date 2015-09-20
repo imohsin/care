@@ -22,7 +22,11 @@ class ContactController extends Controller
 		 	->where('company.expired', '=', 0)
 		 	->orderBy('company.name')
 		 	->get();
-        return view('contact', ['contact' => $contact,'companies' => $companies]);
+		$communications = DB::table('communication')
+			->where('expired', '=', 0)
+			->where('contact_id',$id)
+			->get();
+        return view('contact', ['contact' => $contact,'companies' => $companies, 'communications' => $communications]);
     }
 
     public function delete($id, $co)
