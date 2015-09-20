@@ -28,7 +28,6 @@
 				<td><?php echo Form::label('organization_id', 'Organization'); ?> </td>
 				<td>
 				  <select class="form-control" name="organization_id">
-				  	<option value="">-- choose one --</option>
 					@foreach($orgs as $org)
 						<?php $selected = ''; ?>
 						@if (isset($opencart) && ($org->id === $opencart->organization_id))
@@ -56,7 +55,7 @@
 			</tr>
 			<tr>
 				<td><?php echo Form::label('password', 'Password'); ?></td>
-				<td><?php echo Form::text('password', (isset($opencart)) ? $opencart->password : '' ); ?></td>
+				<td><?php echo Form::password('password', ['class' => 'form-control']); ?></td>
 			</tr>
 			<tr>
 				<td><?php echo Form::label('database', 'Database'); ?></td>

@@ -34,7 +34,6 @@
 				<td><?php echo Form::label('organization_id', 'Organization'); ?> </td>
 				<td>
 				  <select class="form-control" name="organization_id">
-				  	<option value="">-- choose one -- </option>
 					@foreach($orgs as $org)
 						<?php $selected = ''; ?>
 						@if (isset($company) && ($org->id === $company->organization_id))
@@ -118,6 +117,7 @@
 				  @endforeach
 			</table>
 	</td></tr>
+	<!--//
 	<tr><td>
 			<table>
 				  <tr><td colspan="3"><b>Deals</b></td>
@@ -132,6 +132,7 @@
 				  @endforeach
 			</table>
 	</td></tr>
+	-->
 	<tr><td>
 			<table>
 				  <tr><td colspan="3"><b>Company Backoffice</b></td>

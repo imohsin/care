@@ -16,29 +16,6 @@ class OrganizationController extends Controller
      */
     public function index()
     {
-        //$organizations = DB::select('select * from organization where expired = ?', [0]);
-		/*$organizations = DB::table('organization')
-					->leftJoin('company', function ($joincompany) {
-						$joincompany->on('organization.id', '=', 'company.organization_id')
-							 ->where('company.expired', '=', 0);
-					})
-					->leftJoin('opencart_info', function ($joinocinfo) {
-						$joinocinfo->on('organization.id', '=', 'opencart_info.organization_id')
-							 ->where('opencart_info.expired', '=', 0);
-					})
-					->leftJoin('smtp_info', function ($joinsmtpinfo) {
-						$joinsmtpinfo->on('organization.id', '=', 'smtp_info.organization_id')
-							 ->where('smtp_info.expired', '=', 0);
-					})
-					->leftJoin('contact', function ($joincontact) {
-						$joincontact->on('company.id', '=', 'contact.company_id')
-							 ->where('contact.expired', '=', 0);
-					})
-			        ->select('organization.*',  DB::raw('count(distinct company.id) as companies'),
-		            	'opencart_info.host as ocHost', 'smtp_info.host as smtpHost', DB::raw('count(distinct contact.id) as contacts'))
-		            ->where('organization.expired', '=', 0)
-		            ->orderBy('organization.long_name')
-            		->get();*/
 
 		$organizations = DB::table('organization')
 		            ->where('expired', '=', 0)

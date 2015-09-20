@@ -28,7 +28,6 @@
 				<td><?php echo Form::label('organization_id', 'Organization'); ?> </td>
 				<td>
 				  <select class="form-control" name="organization_id">
-				  	<option value="">-- choose one --</option>
 					@foreach($orgs as $org)
 						<?php $selected = ''; ?>
 						@if (isset($smtpinfo) && ($org->id === $smtpinfo->organization_id))

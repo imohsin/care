@@ -12,7 +12,11 @@ class AddressController extends Controller
 
     public function create($co)
     {
-        return view('address',['co' => $co]);
+		$countries = DB::table('country')
+		 	->where('country.expired', '=', 0)
+		 	->orderBy('country.sort_order')
+		 	->get();
+        return view('address',['co' => $co,'countries' => $countries]);
     }
 
     public function edit($id)
@@ -22,7 +26,11 @@ class AddressController extends Controller
 		 	->where('company.expired', '=', 0)
 		 	->orderBy('company.name')
 		 	->get();
-        return view('address', ['address' => $address,'companies' => $companies]);
+		$countries = DB::table('country')
+		 	->where('country.expired', '=', 0)
+		 	->orderBy('country.sort_order')
+		 	->get();
+        return view('address', ['address' => $address,'companies' => $companies,'countries' => $countries]);
     }
 
     public function delete($id, $co)
@@ -31,7 +39,7 @@ class AddressController extends Controller
             ->where('id', $id)
             ->update(['expired' => 1]
         );
-        return Redirect::action('AddressController@edit', $co);
+        return Redirect::action('CompanyController@edit', $co);
     }
 
     public function handleCreate()
