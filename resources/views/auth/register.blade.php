@@ -1,31 +1,30 @@
 
-@extends('base')
+@extends('auth')
+
+@section('title', 'Register')
 
 @section('body')
 
-<h3>Register</h3>
-<table  cellpadding="10" border="1">
+@if($errors->any())
+<div class="alert alert-danger" role="alert">
+@foreach ($errors->all() as $message)
+{{$message}}<br />
+@endforeach
+</div>
+@endif
 
 <?php echo Form::open(array('action' => 'Auth\AuthController@handleRegister')); ?>
-<?php echo Form::token(); ?>
-@foreach ($errors->all() as $message)
 
-<font color="red">{{$message}}</font>
+<label for="name" class="sr-only">Name</label>
+<input type="name" name="name" id="name" class="form-control" placeholder="Name" value="{{ old('name') }}" required autofocus>
+<label for="email" class="sr-only">Email address</label>
+<input type="email" name="email" id="email" class="form-control" placeholder="Email address" value="{{ old('email') }}" required>
+<label for="password" class="sr-only">Password</label>
+<input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
+<label for="password_confirmation" class="sr-only">Password</label>
+<input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="Confirm Password" required>
+<button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
 
-@endforeach
-<tr><td>Name</td>
-	<td><input type="name" name="name" value="{{ old('name') }}"></td></tr>
-<tr><td>Email</td>
-	<td><input type="email" name="email" value="{{ old('email') }}"></td></tr>
-<tr><td>Password</td>
-	<td><input type="password" name="password" id="password"></td></tr>
-<tr><td>Confirm Password</td>
-	<td><input type="password" name="password_confirmation" id="password_confirmation"></td></tr>
-<tr><td colspan="2" align="right">
-	<button type="submit">Register</button>
-</td></tr>
 <?php echo Form::close(); ?>
-
-</table>
 
 @stop

@@ -1,36 +1,32 @@
 
-@extends('base')
+@extends('auth')
+
+@section('title', 'Password Reset')
 
 @section('body')
 
 @if (Session::has('success'))
-  Your password has been reset.  Please <a href="{{ url('/') }}">login</a> again
+<div class="alert alert-success" role="alert">Your password has been reset.  Please <a href="{{ url('/') }}">login</a> again.</div>
 @endif
 
-<h3>Reset Passsword</h3>
-<table  cellpadding="10" border="1">
+@if($errors->any())
+<div class="alert alert-danger" role="alert">
+@foreach ($errors->all() as $message)
+{{$message}}<br />
+@endforeach
+</div>
+@endif
 
 <?php echo Form::open(array('action' => 'Auth\PasswordController@handleReset')); ?>
-<?php echo Form::token(); ?>
-@foreach ($errors->all() as $message)
 
-<font color="red">{{$message}}</font>
+<label for="email" class="sr-only">Email address</label>
+<input type="email" name="email" id="email" class="form-control" placeholder="Email address" value="{{ old('email') }}" required autofocus>
+<label for="password" class="sr-only">Password</label>
+<input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
+<label for="password_confirmation" class="sr-only">Password</label>
+<input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="Confirm Password" required>
+<button class="btn btn-lg btn-primary btn-block" type="submit">Reset Password</button>
 
-@endforeach
-<tr><td>Email</td>
-	<td><input type="email" name="email" value="{{ old('email') }}"></td></tr>
-<tr><td>Password</td>
-	<td><input type="password" name="password"></td></tr>
-<tr><td>Confirm Password</td>
-	<td><input type="password" name="password_confirmation"></td></tr>
-<tr><td colspan="2" align="right">
-    <input type="hidden" name="token" value="{{ $token }}">
-	<button type="submit">Reset Password</button>
-</td></tr>
 <?php echo Form::close(); ?>
-
-</table>
-
-
 
 @stop

@@ -29,6 +29,8 @@
   </head>
 
   <body>
+  @if(Auth::check())
+  @endif
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -46,6 +48,7 @@
             <li><a href="{{ route('settings') }}"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Settings</a></li>
             <li><a href="{{ route('profile') }}"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Profile</a></li>
             <li><a href="{{ route('help') }}"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span> Help</a></li>
+            <li><a href="auth/logout"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout</a></li>
           </ul>
         </div>
       </div>
@@ -70,6 +73,9 @@
             <li><a href="{{ route('settings') }}"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Settings</a></li>
             <li><a href="{{ route('profile') }}"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Profile</a></li>
             <li><a href="{{ route('help') }}"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span> Help</a></li>
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li><a href="auth/logout"><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout</a></li>
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
