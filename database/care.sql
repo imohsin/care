@@ -115,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `communication` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `contact_id` int(11) NOT NULL,
   `communication_type_id` int(11) NOT NULL,
-  `value` varchar(40) NOT NULL ;
+  `value` varchar(40) NOT NULL ,
   `expired` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `contact_id` (`contact_id`),
