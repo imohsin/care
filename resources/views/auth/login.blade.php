@@ -13,7 +13,7 @@
 </div>
 @endif
 
-<?php echo Form::open(array('action' => 'Auth\AuthController@handleLogin')); ?>
+<?php echo Form::open(array('action' => 'Auth\AuthController@handleLogin','class'=>'form300')); ?>
 
 <label for="email" class="sr-only">Email address</label>
 <input type="email" name="email" id="email" class="form-control" placeholder="Email address" required autofocus>

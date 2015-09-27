@@ -1,3 +1,25 @@
 body {
- font: 16px Arial, sans-serif;
+ font: 1.3em Arial, sans-serif;
+}
+h2 {
+  font-size: large;
+}
+.form300 {
+  max-width: 330px;
+  //padding: 15px;
+  //margin: 0 auto;
+  margin-bottom: 20px;
+}
+.form300 input, .form300 a, .form300 select{
+  margin: 0 0 5px 0;
+}
+.panel-heading {
+  font-weight: bold;
+}
+.panel table tbody tr td {
+    vertical-align: middle;
+}
+
+.panel table tbody tr > td:first-child, .panel table thead tr > th:first-child{ 
+    padding-left: 15px;
 }

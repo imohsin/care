@@ -36,14 +36,14 @@
         <td>{{ $delivery->delivery_address }}</td>
         <td>{{ $delivery->contact_number }}</td>
         <td>{{ $delivery->delivery_notes }}</td>
-        <td><a href="{{ action('DeliveryController@edit', $delivery->id) }}">Edit</a></td>
-        <td><a href="{{ action('DeliveryController@delete', $delivery->id) }}">Delete</a></td>
+        <td><a class="btn btn-sm btn-default" href="{{ action('DeliveryController@edit', $delivery->id) }}">Edit</a></td>
+        <td><a class="btn btn-sm btn-default" href="{{ action('DeliveryController@delete', $delivery->id) }}">Delete</a></td>
         </tr>
-  @endforeach
+    @endforeach
     </tbody>
     <tfooter>
       <tr>
-        <td colspan="100%" align="right"><a href="{{ action('DeliveryController@create') }}">Add</a></td>
+        <td colspan="100%" align="right"><a class="btn btn-lg btn-primary" href="{{ action('DeliveryController@create') }}">Add</a></td>
       </tr>
     </tfooter>
   </table>

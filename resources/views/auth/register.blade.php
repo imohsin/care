@@ -13,7 +13,7 @@
 </div>
 @endif
 
-<?php echo Form::open(array('action' => 'Auth\AuthController@handleRegister')); ?>
+<?php echo Form::open(array('action' => 'Auth\AuthController@handleRegister','class'=>'form300')); ?>
 
 <label for="name" class="sr-only">Name</label>
 <input type="name" name="name" id="name" class="form-control" placeholder="Name" value="{{ old('name') }}" required autofocus>

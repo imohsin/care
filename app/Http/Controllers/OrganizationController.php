@@ -66,6 +66,7 @@ class OrganizationController extends Controller
 
     public function handleCreate()
     {
+
 		$id = DB::table('organization')->insertGetId(
 		    ['short_name' => Input::get('short_name'),'long_name' => Input::get('long_name')]
 		);
@@ -74,6 +75,7 @@ class OrganizationController extends Controller
 
     public function handleEdit()
     {
+
 		DB::table('organization')
             ->where('id', Input::get('id'))
             ->update(

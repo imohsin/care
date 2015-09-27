@@ -49,11 +49,17 @@ class DeliveryController extends Controller
     public function handleCreate()
     {
 
-		DB::table('delivery')->insert(
-		    ['shop_id' => Input::get('shop_id'),'courier_id' => Input::get('courier_id'),'purchase_id' => Input::get('purchase_id')
-		    ,'tracking_number' => Input::get('tracking_number'),'dispatch_date' => Input::get('dispatch_date'),'customer_name' => Input::get('customer_name')
-		    ,'delivery_address' => Input::get('delivery_address'),'contact_number' => Input::get('contact_number'),'delivery_notes' => Input::get('delivery_notes')]
-		);
+		DB::table('delivery')->insert([
+            'shop_id' => Input::get('shop_id'),
+            'courier_id' => Input::get('courier_id'),
+            'purchase_id' => Input::get('purchase_id'),
+		    'tracking_number' => Input::get('tracking_number'),
+            'dispatch_date' => Input::get('dispatch_date'),
+            'customer_name' => Input::get('customer_name'),
+		    'delivery_address' => Input::get('delivery_address'),
+            'contact_number' => Input::get('contact_number'),
+            'delivery_notes' => Input::get('delivery_notes')
+        ]);
         return Redirect::action('DeliveryController@index');
     }
 
@@ -61,11 +67,17 @@ class DeliveryController extends Controller
     {
 		DB::table('delivery')
             ->where('id', Input::get('id'))
-            ->update(
-				['shop_id' => Input::get('shop_id'),'courier_id' => Input::get('courier_id'),'purchase_id' => Input::get('purchase_id')
-						    ,'tracking_number' => Input::get('tracking_number'),'dispatch_date' => Input::get('dispatch_date'),'customer_name' => Input::get('customer_name')
-		    ,'delivery_address' => Input::get('delivery_address'),'contact_number' => Input::get('contact_number'),'delivery_notes' => Input::get('delivery_notes')]
-        );
+            ->update([
+                'shop_id' => Input::get('shop_id'),
+                'courier_id' => Input::get('courier_id'),
+                'purchase_id' => Input::get('purchase_id'),
+                'tracking_number' => Input::get('tracking_number'),
+                'dispatch_date' => Input::get('dispatch_date'),
+                'customer_name' => Input::get('customer_name'),
+                'delivery_address' => Input::get('delivery_address'),
+                'contact_number' => Input::get('contact_number'),
+                'delivery_notes' => Input::get('delivery_notes')
+        ]);
         return Redirect::action('DeliveryController@edit', Input::get('id'));
     }
 

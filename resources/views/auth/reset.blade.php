@@ -17,7 +17,7 @@
 </div>
 @endif
 
-<?php echo Form::open(array('action' => 'Auth\PasswordController@handleReset')); ?>
+<?php echo Form::open(array('action' => 'Auth\PasswordController@handleReset','class'=>'form300')); ?>
 
 <label for="email" class="sr-only">Email address</label>
 <input type="email" name="email" id="email" class="form-control" placeholder="Email address" value="{{ old('email') }}" required autofocus>
