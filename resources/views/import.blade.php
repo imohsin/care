@@ -36,7 +36,7 @@
 	<?php echo Form::label('import_file', 'File', array('class' => 'sr-only')); ?>
 	<?php echo Form::file('import_file', null, array('class' => 'form-control', 'placeholder' => 'File' ) ); ?>
 
-	<?php echo Form::submit('Add', array('class' => 'btn btn-sm btn-primary')); ?>
+	<?php echo Form::submit('Import', array('class' => 'btn btn-sm btn-primary')); ?>
 
 	<?php echo Form::close(); ?>
 

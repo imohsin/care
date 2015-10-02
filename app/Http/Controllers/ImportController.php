@@ -29,17 +29,26 @@ class ImportController extends Controller
     {
 
 	  // getting all of the post data
-	  $file = array('import_file' => Input::file('import_file'));
+	  $file = Input::file('import_file');
 	  // setting up rules
-	  $rules = array('import_file' => 'required|mimes:xls,xlsx,csv',);
+	  $rules = array('import_file' => 'required');
 	  // doing the validation, passing post data, rules and the messages
-	  $validator = Validator::make($file, $rules);
+	  $validator = Validator::make(
+		['file' => $file,'extension' => strtolower($file->getClientOriginalExtension())],
+		['file' => 'required','extension' => 'required|in:csv']
+	  );
 	  if ($validator->fails()) {
 		// send back to the page with the input data and errors
 		return Redirect::to('import')->withInput()->withErrors($validator);
 	  }
 	  else {
+
 		  //do something
+		  //exists and readable?
+		  if(!file_exists($filename) || !is_readable($filename)) {
+
+		  }
+
 	  }
 
 		/*$id = DB::table('import_paypal')->insertGetId(
