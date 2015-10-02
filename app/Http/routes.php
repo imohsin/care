@@ -239,11 +239,20 @@ Route::get('enquiries', array(
 
 Route::get('import', array(
     'as' => 'import',
+    'uses' => 'ImportController@create',
     'middleware' => 'auth',
     function() {
         return View::make('import');
     }
 ));
+
+Route::group(array('prefix' => 'import', 'middleware' => 'auth'), function()
+{
+	Route::get('/display/{imp}', 'ImportController@display');
+
+	// Handle form submissions.
+	Route::post('/create', 'ImportController@handleCreate');
+});
 
 Route::get('export', array(
     'as' => 'export',

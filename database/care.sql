@@ -586,6 +586,29 @@ CREATE TABLE IF NOT EXISTS `import_paypal` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `import_supplier`
+--
+
+CREATE TABLE IF NOT EXISTS `import_supplier` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `sort_order` int(11) NOT NULL DEFAULT '0',
+  `expired` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+
+INSERT INTO `import_supplier` (`id`, `name`, `sort_order`) VALUES
+(1, 'Go Groopie', 1),
+(2, 'Groupon', 2),
+(3, 'Living Social', 3),
+(4, 'Nutri Bullet', 4),
+(5, 'Paypal', 5),
+(6, 'Tap4Deals', 6);
+
+;
+
+-- --------------------------------------------------------
+--
 -- Table structure for table `note`
 --
 
