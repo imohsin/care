@@ -13,14 +13,29 @@
   </div>
 @endif
 
-@if (isset($imp))
-
-		display imports here
-
+@if (isset($imports))
+	<div class="table-responsive">
+	  <table class="table table-striped">
+		<thead>
+			<tr>
+			@foreach($columns as $column)
+				<th>{{$column}}</th>
+			@endforeach
+			</tr>
+		</thead>
+		<tbody>
+			@foreach($imports as $imp)
+			<tr>
+				@foreach($columns as $column)
+					<td>{{$imp->$column}}</td>
+				@endforeach
+			</tr>
+			@endforeach
+		</tbody>
+	</table>
+	</div>
 @else
-
 	<?php echo Form::open(array('action' => 'ImportController@handleCreate','class'=>'form300', 'files' => true)); ?>
-
 	@if(isset($suppliers))
 		<?php echo Form::label('name', 'Import Suppliers', array('class' => 'sr-only')); ?>
 		<select class="form-control" name="supplier_name">
@@ -30,16 +45,12 @@
 			@endforeach
 		</select>
 	@endif
-
 	<?php echo Form::label('import_id', 'Import Id', array('class' => 'sr-only')); ?>
 	<?php echo Form::text('import_id', null, array('class' => 'form-control', 'placeholder' => 'Import ID' )); ?>
 	<?php echo Form::label('import_file', 'File', array('class' => 'sr-only')); ?>
 	<?php echo Form::file('import_file', null, array('class' => 'form-control', 'placeholder' => 'File' ) ); ?>
-
 	<?php echo Form::submit('Import', array('class' => 'btn btn-sm btn-primary')); ?>
-
 	<?php echo Form::close(); ?>
-
 @endif
 
 @stop

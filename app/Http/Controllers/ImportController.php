@@ -5,6 +5,7 @@ namespace Care\Http\Controllers;
 use DB;
 use Input;
 use Validator;
+use Schema;
 use Care\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 
@@ -20,9 +21,13 @@ class ImportController extends Controller
         return view('import', ['suppliers' => $suppliers]);
     }
 
-    public function display($imp)
+    public function display($table, $id)
     {
-        return view('import', ['imp' => $imp]);
+		$imports = DB::table($table)
+		 	->where('shop_id', '=', $id)
+		 	->get();
+		$columns = Schema::getColumnListing($table);
+        return view('import', ['imports' => $imports, 'columns' => $columns]);
     }
 
     public function handleCreate()
@@ -43,28 +48,26 @@ class ImportController extends Controller
 	  }
 	  else {
 
-		  //do something
 		  //exists and readable?
 		  if(file_exists($file) && is_readable($file)) {
 
 			$name = time() . $file->getClientOriginalName();
 			$path = base_path() . '/storage/imports/';
-			//$path = '';
-
-			// Moves file to folder on server
+			// Move file to folder on server
 			$file->move($path, $name);
 			$table = 'import_' . strtolower(Input::get('supplier_name'));
+			$importId = Input::get('import_id');
 			//Import uploaded file to Database
 			$handle = fopen($path . $name, "r");
 			$firstline = true;
 			while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
 				if($firstline) { $firstline = false; continue; }
 				$insert = sprintf("INSERT into %s values(%s, %s)", addslashes($table),
-					addslashes(Input::get('import_id')), $this->getColumnValueData($data));
+					addslashes($importId), $this->getColumnValueData($data));
 				DB::insert($insert);
 			}
 
-			return Redirect::action('ImportController@display', 'id');
+			return Redirect::action('ImportController@display', ['table' => $table, 'id' => $importId]);
 
 		  }//file exists
 
@@ -73,16 +76,6 @@ class ImportController extends Controller
 	  echo "something is amiss...";
 
     }
-
-	private function getColumnValueParams($data) {
-		$cvp = '';
-		$length = count($data);
-		for($i=0;$i<$length;$i++) {
-			$cvp = $cvp . ",[%s]";
-		}
-
-		return $cvp;
-	}
 
 	private function getColumnValueData($data) {
 		$cvd = '';
