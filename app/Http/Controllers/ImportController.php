@@ -56,10 +56,11 @@ class ImportController extends Controller
 			$table = 'import_' . strtolower(Input::get('supplier_name'));
 			//Import uploaded file to Database
 			$handle = fopen($path . $name, "r");
+			$firstline = true;
 			while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-				$insert = sprintf("INSERT into '%s' values('%s', " .
-					$this->getColumnValueParams($data) . ");", addslashes($table),
-					Input::get('import_id'), $this->getColumnValueData($data));
+				if($firstline) { $firstline = false; continue; }
+				$insert = sprintf("INSERT into %s values(%s, %s)", addslashes($table),
+					addslashes(Input::get('import_id')), $this->getColumnValueData($data));
 				DB::insert($insert);
 			}
 
@@ -75,8 +76,9 @@ class ImportController extends Controller
 
 	private function getColumnValueParams($data) {
 		$cvp = '';
-		for($i=0;$i<$data.length;$i++) {
-			$cvp = $cvp . ",'%s'";
+		$length = count($data);
+		for($i=0;$i<$length;$i++) {
+			$cvp = $cvp . ",[%s]";
 		}
 
 		return $cvp;
@@ -84,8 +86,11 @@ class ImportController extends Controller
 
 	private function getColumnValueData($data) {
 		$cvd = '';
-		for($i=0;$i<$data.length;$i++) {
-			$cvd = $cvd . addslashes($data[i]);
+		$length = count($data);
+		for($i=0;$i<$length;$i++) {
+			$cvd = $cvd . "'" . $data[$i] . "'";
+			if(!($i==($length - 1)))
+				$cvd = $cvd . ",";
 		}
 
 		return $cvd;
