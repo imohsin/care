@@ -33,6 +33,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `name` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL UNIQUE,
   `password` varchar(100) NOT NULL,
+  `organization_id` int(11), 
   `remember_token` varchar(100) DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
@@ -540,6 +541,8 @@ INSERT INTO `delivery` (`id`, `shop_id`, `courier_id`, `purchase_id`, `tracking_
 
 CREATE TABLE IF NOT EXISTS `import_paypal` (
   `shop_id` int(11) NOT NULL,
+  `No. of boxes` varchar(10) DEFAULT NULL,
+  `Type of service` varchar(10) DEFAULT NULL,
   `Date` varchar(9) DEFAULT NULL,
   `Time` varchar(8) DEFAULT NULL,
   `Time Zone` varchar(3) DEFAULT NULL,
@@ -568,6 +571,8 @@ CREATE TABLE IF NOT EXISTS `import_paypal` (
   `Buyer ID` varchar(21) DEFAULT NULL,
   `Item URL` varchar(65) DEFAULT NULL,
   `Closing Date` varchar(9) DEFAULT NULL,
+  `Escrow ID` varchar(17) DEFAULT NULL,
+  `Invoice ID` varchar(17) DEFAULT NULL,
   `Reference Txn ID` varchar(17) DEFAULT NULL,
   `Invoice Number` varchar(10) DEFAULT NULL,
   `Custom Number` varchar(11) DEFAULT NULL,
@@ -580,6 +585,11 @@ CREATE TABLE IF NOT EXISTS `import_paypal` (
   `Postcode` varchar(8) DEFAULT NULL,
   `Country` varchar(14) DEFAULT NULL,
   `Contact Phone Number` varchar(10) DEFAULT NULL,
+  `Service Reference` varchar(10) DEFAULT NULL,
+  `Service Enhancement` varchar(10) DEFAULT NULL,
+  `Service Format` varchar(10) DEFAULT NULL,
+  `Signature` varchar(10) DEFAULT NULL,
+  `Weight (kgs)` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`shop_id`,`Transaction ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

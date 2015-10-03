@@ -45,16 +45,50 @@ class ImportController extends Controller
 
 		  //do something
 		  //exists and readable?
-		  if(!file_exists($filename) || !is_readable($filename)) {
+		  if(file_exists($file) && is_readable($file)) {
 
-		  }
+			$name = time() . $file->getClientOriginalName();
+			$path = base_path() . '/storage/imports/';
+			//$path = '';
 
-	  }
+			// Moves file to folder on server
+			$file->move($path, $name);
+			$table = 'import_' . strtolower(Input::get('supplier_name'));
+			//Import uploaded file to Database
+			$handle = fopen($path . $name, "r");
+			while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+				$insert = sprintf("INSERT into '%s' values('%s', " .
+					$this->getColumnValueParams($data) . ");", addslashes($table),
+					Input::get('import_id'), $this->getColumnValueData($data));
+				DB::insert($insert);
+			}
 
-		/*$id = DB::table('import_paypal')->insertGetId(
-		    ['company_id' => Input::get('company_id'),'url' => Input::get('url'),'username' => Input::get('username'),'password' => Input::get('password')]
-		);*/
-        //return Redirect::action('ImportController@display', 'id');
+			return Redirect::action('ImportController@display', 'id');
+
+		  }//file exists
+
+	  }//validation
+
+	  echo "something is amiss...";
+
     }
+
+	private function getColumnValueParams($data) {
+		$cvp = '';
+		for($i=0;$i<$data.length;$i++) {
+			$cvp = $cvp . ",'%s'";
+		}
+
+		return $cvp;
+	}
+
+	private function getColumnValueData($data) {
+		$cvd = '';
+		for($i=0;$i<$data.length;$i++) {
+			$cvd = $cvd . addslashes($data[i]);
+		}
+
+		return $cvd;
+	}
 
 }
