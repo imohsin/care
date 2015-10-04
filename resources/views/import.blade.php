@@ -36,17 +36,23 @@
 	</div>
 @else
 	<?php echo Form::open(array('action' => 'ImportController@handleCreate','class'=>'form300', 'files' => true)); ?>
+		<select class="form-control" name="shop_id">
+			<option value=''>- Choose a shop -</option>
+			  <!-- Imran to do -->
+			  <option value='2'>Bing Bang Bosh</option>
+			  <option value='1'>Zingy Tec</option>
+		</select>
 	@if(isset($suppliers))
-		<?php echo Form::label('name', 'Import Suppliers', array('class' => 'sr-only')); ?>
+		<?php echo Form::label('name', 'Choose an import', array('class' => 'sr-only')); ?>
 		<select class="form-control" name="supplier_name">
-			<option value=''>- Choose a Supplier -</option>
+			<option value=''>- Choose an import -</option>
 			@foreach($suppliers as $supplier)
 			  <option>{{$supplier->name}}</option>
 			@endforeach
 		</select>
 	@endif
-	<?php echo Form::label('import_id', 'Account Number', array('class' => 'sr-only')); ?>
-	<?php echo Form::text('import_id', null, array('class' => 'form-control', 'placeholder' => 'Account Number' )); ?>
+	<?php echo Form::label('account_number', 'Account Number', array('class' => 'sr-only')); ?>
+	<?php echo Form::text('account_number', null, array('class' => 'form-control', 'placeholder' => 'Account Number' )); ?>
 	<?php echo Form::label('import_file', 'File', array('class' => 'sr-only')); ?>
 	<?php echo Form::file('import_file', null, array('class' => 'form-control', 'placeholder' => 'File' ) ); ?>
 	<?php echo Form::submit('Import', array('class' => 'btn btn-sm btn-primary')); ?>

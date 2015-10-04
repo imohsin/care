@@ -56,18 +56,19 @@ class ImportController extends Controller
 			// Move file to folder on server
 			$file->move($path, $name);
 			$table = 'import_' . strtolower(Input::get('supplier_name'));
-			$importId = Input::get('import_id');
+			$shop_id = Input::get('shop_id');
+			$account_number = Input::get('account_number');
 			//Import uploaded file to Database
 			$handle = fopen($path . $name, "r");
 			$firstline = true;
 			while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
 				if($firstline) { $firstline = false; continue; }
-				$insert = sprintf("INSERT into %s values(%s, %s)", addslashes($table),
-					("'" . $importId ."'"), $this->getColumnValueData($data));
+				$insert = sprintf("INSERT IGNORE INTO %s VALUES(%s, %s, %s)", addslashes($table),
+					("'" . $shop_id ."'"),("'" . $account_number ."'"), $this->getColumnValueData($data));
 				DB::insert($insert);
 			}
 
-			return Redirect::action('ImportController@display', ['table' => $table, 'id' => $importId]);
+			return Redirect::action('ImportController@display', ['table' => $table, 'id' => $shop_id]);
 
 		  }//file exists
 
@@ -81,7 +82,7 @@ class ImportController extends Controller
 		$cvd = '';
 		$length = count($data);
 		for($i=0;$i<$length;$i++) {
-			$cvd = $cvd . "'" . $data[$i] . "'";
+			$cvd = $cvd . "'" . str_replace(array("'", "\"", "&quot;"), "", htmlspecialchars($data[$i])) . "'";
 			if(!($i==($length - 1)))
 				$cvd = $cvd . ",";
 		}

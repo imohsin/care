@@ -540,9 +540,10 @@ INSERT INTO `delivery` (`id`, `shop_id`, `courier_id`, `purchase_id`, `tracking_
 --
 
 CREATE TABLE IF NOT EXISTS `import_paypal` (
-  `shop_id` varchar(40) NOT NULL,
-  `no_of_boxes` varchar(10) DEFAULT NULL,
-  `type_of_service` varchar(10) DEFAULT NULL,
+  `shop_id` int(11) NOT NULL,
+  `account_number` varchar(40) NOT NULL,
+  -- `no_of_boxes` varchar(10) DEFAULT NULL,
+  -- `type_of_service` varchar(10) DEFAULT NULL,
   `date` varchar(9) DEFAULT NULL,
   `time` varchar(8) DEFAULT NULL,
   `time_zone` varchar(3) DEFAULT NULL,
@@ -585,11 +586,13 @@ CREATE TABLE IF NOT EXISTS `import_paypal` (
   `postcode` varchar(8) DEFAULT NULL,
   `country` varchar(14) DEFAULT NULL,
   `contact_phone_number` varchar(10) DEFAULT NULL,
-  `service_reference` varchar(10) DEFAULT NULL,
-  `service_enhancement` varchar(10) DEFAULT NULL,
-  `service_format` varchar(10) DEFAULT NULL,
-  `signature` varchar(10) DEFAULT NULL,
-  `weight` varchar(10) DEFAULT NULL,
+  `tracking` varchar(20) DEFAULT NULL,
+
+  -- `service_reference` varchar(10) DEFAULT NULL,
+  -- `service_enhancement` varchar(10) DEFAULT NULL,
+  -- `service_format` varchar(10) DEFAULT NULL,
+  -- `signature` varchar(10) DEFAULT NULL,
+  -- `weight` varchar(10) DEFAULT NULL,
   PRIMARY KEY (`shop_id`,`transaction_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
