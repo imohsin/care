@@ -45,8 +45,8 @@
 			@endforeach
 		</select>
 	@endif
-	<?php echo Form::label('import_id', 'Import Id', array('class' => 'sr-only')); ?>
-	<?php echo Form::text('import_id', null, array('class' => 'form-control', 'placeholder' => 'Import ID' )); ?>
+	<?php echo Form::label('import_id', 'Account Number', array('class' => 'sr-only')); ?>
+	<?php echo Form::text('import_id', null, array('class' => 'form-control', 'placeholder' => 'Account Number' )); ?>
 	<?php echo Form::label('import_file', 'File', array('class' => 'sr-only')); ?>
 	<?php echo Form::file('import_file', null, array('class' => 'form-control', 'placeholder' => 'File' ) ); ?>
 	<?php echo Form::submit('Import', array('class' => 'btn btn-sm btn-primary')); ?>

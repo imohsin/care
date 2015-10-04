@@ -63,7 +63,7 @@ class ImportController extends Controller
 			while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
 				if($firstline) { $firstline = false; continue; }
 				$insert = sprintf("INSERT into %s values(%s, %s)", addslashes($table),
-					addslashes($importId), $this->getColumnValueData($data));
+					("'" . $importId ."'"), $this->getColumnValueData($data));
 				DB::insert($insert);
 			}
 

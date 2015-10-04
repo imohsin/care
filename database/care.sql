@@ -540,7 +540,7 @@ INSERT INTO `delivery` (`id`, `shop_id`, `courier_id`, `purchase_id`, `tracking_
 --
 
 CREATE TABLE IF NOT EXISTS `import_paypal` (
-  `shop_id` int(11) NOT NULL,
+  `shop_id` varchar(40) NOT NULL,
   `no_of_boxes` varchar(10) DEFAULT NULL,
   `type_of_service` varchar(10) DEFAULT NULL,
   `date` varchar(9) DEFAULT NULL,
