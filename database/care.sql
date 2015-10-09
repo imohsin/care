@@ -39,10 +39,11 @@ CREATE TABLE IF NOT EXISTS `users` (
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
   `expired` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
-INSERT INTO `users` (`name`, `email`, `password`) VALUES
-('imran mohsin', 'imran.mohsin@gmail.com', 'imohsin');
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `organization_id` ) VALUES
+(1, 'Imran Mohsin', 'imran.mohsin@gmail.com', '$2y$10$AwnvVnsnSiCERHfycfNpkeOLNnq7EAKghqIVrefRh0M9/fpTOZzAu', 1 ),
+(2, 'Mohsin Shah',  'mohsin.shah@gmail.com',  '$2y$10$AwnvVnsnSiCERHfycfNpkeOLNnq7EAKghqIVrefRh0M9/fpTOZzAu', 1 );
 
 -- --------------------------------------------------------
 
@@ -78,6 +79,34 @@ CREATE TABLE IF NOT EXISTS `address` (
   KEY `company_id` (`company_id`),
   KEY `country_id` (`country_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bank`
+--
+
+CREATE TABLE IF NOT EXISTS `bank` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `type` varchar(100) NOT NULL,
+  `company_id` int(11) NOT NULL,
+  `expired` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+
+--
+-- Dumping data for table `bank`
+--
+
+INSERT INTO `bank` (`id`, `type`, `company_id`) VALUES
+(1, '03730565',1),
+(2, '83695662',1),
+(3, '93319857',1),
+(4, '93419657',1),
+(5, 'maimuna_78692110',2),
+(6, 'mashhood_',2),
+(7, 'tara_1234',2),
+(8, '03730565',1);
 
 -- --------------------------------------------------------
 
@@ -166,10 +195,10 @@ CREATE TABLE IF NOT EXISTS `company_type` (
 --
 
 INSERT INTO `company_type` (`id`, `type`) VALUES
-(1, 'Courier'),
-(2, 'Shop'),
+(1, 'Shop'),
+(2, 'Deal Provider'),
 (3, 'Payment Provider'),
-(4, 'Deal Provider');
+(4, 'Courier');
 
 -- --------------------------------------------------------
 
@@ -186,19 +215,31 @@ CREATE TABLE IF NOT EXISTS `company` (
   PRIMARY KEY (`id`),
   KEY `organization_id` (`organization_id`),
   KEY `company_type_id` (`company_type_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
 
 --
 -- Dumping data for table `company`
 --
 
 INSERT INTO `company` (`id`, `organization_id`, `company_type_id`, `name`) VALUES
-(1, 1, 1, 'Wowcher'),
-(2, 1, 2, 'UKMetro'),
-(3, 1, 2, 'Groupon'),
-(4, 1, 3, 'Gumtree'),
-(5, 1, 4, 'Savvy Mummys'),
-(6, 1, 4, 'Mighty Deals');
+(1,  1, 1, 'BBB @ GoGroopie'),
+(2,  1, 1, 'BBB @ Intu Order NB600'),
+(3,  1, 1, 'BBB @ Living Social'),
+(4,  1, 1, 'BBB @ Tap4deals'),
+(5,  1, 1, 'Maimuna @ Paypal'),
+(6,  1, 1, 'Mashhood @ Paypal'),
+(7,  1, 1, 'Tara @ Paypal'),
+(8,  1, 1, 'WeRTech @ Groupon'),
+
+(9,  1, 2, 'Go Groopie'),
+(10, 1, 2, 'Groupon'),
+(11, 1, 2, 'Living Social'),
+(12, 1, 2, 'Tap Deals'),
+
+(13, 1, 3, 'Barclays Bank'),
+(14, 1, 3, 'PayPal'),
+
+(15, 1, 4, 'Royal Mail');
 
 -- --------------------------------------------------------
 
@@ -599,26 +640,22 @@ CREATE TABLE IF NOT EXISTS `import_paypal` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `import_supplier`
+-- Table structure for table `import_type`
 --
 
-CREATE TABLE IF NOT EXISTS `import_supplier` (
+CREATE TABLE IF NOT EXISTS `import_type` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
+  `table_name` varchar(100) NOT NULL,
   `sort_order` int(11) NOT NULL DEFAULT '0',
   `expired` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
-INSERT INTO `import_supplier` (`id`, `name`, `sort_order`) VALUES
-(1, 'Go Groopie', 1),
-(2, 'Groupon', 2),
-(3, 'Living Social', 3),
-(4, 'Nutri Bullet', 4),
-(5, 'Paypal', 5),
-(6, 'Tap4Deals', 6);
-
-;
+INSERT INTO `import_type` (`id`, `name`, `table_name`, `sort_order`) VALUES
+(1, 'Barclays', 'Barclays', 1),
+(2, 'PayPal', 'PayPal', 2),
+(3, 'Royal Mail', 'RoyalMail', 3);
 
 -- --------------------------------------------------------
 --
@@ -708,7 +745,7 @@ CREATE TABLE IF NOT EXISTS `organization` (
 --
 
 INSERT INTO `organization` (`id`, `short_name`, `long_name`) VALUES
-(1, 'Zingy Tec', 'Zingy Tec');
+(1, 'Bing Bang Bosh', 'Bing Bang Bosh');
 
 -- --------------------------------------------------------
 
@@ -792,6 +829,12 @@ INSERT INTO `smtp_info` (`id`, `organization_id`, `host`, `port`, `username`, `p
 ALTER TABLE `address`
   ADD CONSTRAINT `address_ibfk_2` FOREIGN KEY (`country_id`) REFERENCES `country` (`id`),
   ADD CONSTRAINT `address_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`);
+
+--
+-- Constraints for table `bank`
+--
+ALTER TABLE `bank`
+  ADD CONSTRAINT `bank_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`);
 
 --
 -- Constraints for table `campaign`

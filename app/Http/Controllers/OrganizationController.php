@@ -22,7 +22,7 @@ class OrganizationController extends Controller
             		->orderBy('organization.long_name')
             		->get();
 		$companies = DB::table('company')
-		            ->where('expired', '=', 0)
+                    ->where('expired', '=', 0)
             		->get();
 		$ocInfos = DB::table('opencart_info')
 		            ->where('expired', '=', 0)

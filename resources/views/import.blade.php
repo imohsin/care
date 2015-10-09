@@ -36,16 +36,19 @@
 	</div>
 @else
 	<?php echo Form::open(array('action' => 'ImportController@handleCreate','class'=>'form300', 'files' => true)); ?>
+	@if(isset($shops))
+		<?php echo Form::label('name', 'Choose a shop', array('class' => 'sr-only')); ?>
 		<select class="form-control" name="shop_id">
 			<option value=''>- Choose a shop -</option>
-			  <!-- Imran to do -->
-			  <option value='2'>Bing Bang Bosh</option>
-			  <option value='1'>Zingy Tec</option>
+			@foreach($shops as $shop)
+			  <option value="{{$shop->id}}">{{$shop->name}}</option>
+			@endforeach
 		</select>
+	@endif
 	@if(isset($suppliers))
-		<?php echo Form::label('name', 'Choose an import', array('class' => 'sr-only')); ?>
+		<?php echo Form::label('name', 'Choose an import template', array('class' => 'sr-only')); ?>
 		<select class="form-control" name="supplier_name">
-			<option value=''>- Choose an import -</option>
+			<option value=''>- Choose an import template -</option>
 			@foreach($suppliers as $supplier)
 			  <option>{{$supplier->name}}</option>
 			@endforeach
