@@ -83,34 +83,6 @@ CREATE TABLE IF NOT EXISTS `address` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `bank`
---
-
-CREATE TABLE IF NOT EXISTS `bank` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `type` varchar(100) NOT NULL,
-  `company_id` int(11) NOT NULL,
-  `expired` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `company_id` (`company_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
-
---
--- Dumping data for table `bank`
---
-
-INSERT INTO `bank` (`id`, `type`, `company_id`) VALUES
-(1, '03730565',13),
-(2, '83695662',13),
-(3, '93319857',13),
-(4, '93419657',13),
-(5, 'maimuna_78692110',14),
-(6, 'mashhood_',14),
-(7, 'tara_1234',14);
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `campaign`
 --
 
@@ -215,7 +187,7 @@ CREATE TABLE IF NOT EXISTS `company` (
   PRIMARY KEY (`id`),
   KEY `organization_id` (`organization_id`),
   KEY `company_type_id` (`company_type_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=21 ;
 
 --
 -- Dumping data for table `company`
@@ -236,10 +208,16 @@ INSERT INTO `company` (`id`, `organization_id`, `company_type_id`, `name`) VALUE
 (11, 1, 2, 'Living Social'),
 (12, 1, 2, 'Tap Deals'),
 
-(13, 1, 3, 'Barclays Bank'),
-(14, 1, 3, 'PayPal'),
+(13, 1, 3, 'Barclays 03730565'),
+(14, 1, 3, 'Barclays 83695662'),
+(15, 1, 3, 'Barclays 93319857'),
+(16, 1, 3, 'Barclays 93419657'),
 
-(15, 1, 4, 'Royal Mail');
+(17, 1, 3, 'PayPal maimuna_78692110'),
+(18, 1, 3, 'PayPal mashhood_'),
+(19, 1, 3, 'PayPal tara_1234'),
+
+(10, 1, 4, 'Royal Mail');
 
 -- --------------------------------------------------------
 
@@ -673,9 +651,32 @@ CREATE TABLE IF NOT EXISTS `import_type` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
 
 INSERT INTO `import_type` (`id`, `name`, `table_name`, `sort_order`) VALUES
-(1, 'Barclays', 'Barclays', 1),
-(2, 'PayPal', 'PayPal', 2),
-(3, 'Royal Mail', 'RoyalMail', 3);
+(1, 'Barclays', 'import_barclays', 1),
+(2, 'PayPal', 'import_paypal', 2),
+(3, 'Delivery', 'import_delivery', 3);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `import_type`
+--
+
+CREATE TABLE IF NOT EXISTS `delivery_template` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `table_ext` varchar(100) NOT NULL,
+  `sort_order` int(11) NOT NULL DEFAULT '0',
+  `expired` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+
+INSERT INTO `import_type` (`id`, `name`, `table_ext`, `sort_order`) VALUES
+(1, 'Go Groopie Template', '_go_groopie', 1),
+(2, 'Groupon Template', '_groupon', 2),
+(3, 'Intu Order Template', '_intu_order', 3),
+(4, 'Living Social Template', '_living_social', 4),
+(5, 'Tap4deals Template', '_tap4deals', 5),
+(6, 'Paypal Template', '_paypal', 6);
 
 -- --------------------------------------------------------
 --
@@ -851,12 +852,6 @@ ALTER TABLE `address`
   ADD CONSTRAINT `address_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`);
 
 --
--- Constraints for table `bank`
---
-ALTER TABLE `bank`
-  ADD CONSTRAINT `bank_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `company` (`id`);
-
---
 -- Constraints for table `campaign`
 --
 ALTER TABLE `campaign`
@@ -906,8 +901,7 @@ ALTER TABLE `delivery`
 -- Constraints for table `import_paypal`
 --
 ALTER TABLE `import_barclays`
-  ADD CONSTRAINT `import_barclays_ibfk_1` FOREIGN KEY (`shop_id`) REFERENCES `company` (`id`),
-  ADD CONSTRAINT `import_barclays_ibfk_2` FOREIGN KEY (`bank_id`) REFERENCES `bank` (`id`);
+  ADD CONSTRAINT `import_barclays_ibfk_1` FOREIGN KEY (`shop_id`) REFERENCES `company` (`id`);
 
 --
 -- Constraints for table `import_paypal`
