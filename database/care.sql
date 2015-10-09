@@ -217,7 +217,7 @@ INSERT INTO `company` (`id`, `organization_id`, `company_type_id`, `name`) VALUE
 (18, 1, 3, 'PayPal mashhood_'),
 (19, 1, 3, 'PayPal tara_1234'),
 
-(10, 1, 4, 'Royal Mail');
+(20, 1, 4, 'Royal Mail');
 
 -- --------------------------------------------------------
 
