@@ -18,7 +18,7 @@ class CompanyController extends Controller
 			->get();*/
 		$cotypes = DB::table('company_type')->select('id', 'type')
 			->where('company_type.expired', '=', 0)
-			->orderBy('company_type.type')
+			->orderBy('company_type.id')
 			->get();
 
         return view('company', ['org' => $org, 'cotypes' => $cotypes]);

@@ -41,7 +41,8 @@
 	<option value="" disabled="">-- Choose Company Type --</option>
 	@foreach($cotypes as $cotype)
 		<?php $selected = ''; ?>
-		@if (isset($company) && ($cotype->id === $company->company_type_id))
+		@if ((isset($company) && ($cotype->id === $company->company_type_id))
+				|| ($cotype->id == Request::input('ct')))
 			<?php $selected="selected=true"; ?>
 		@endif
 		<option value="{{$cotype->id}}" {{$selected}}>{{$cotype->type}}</option>

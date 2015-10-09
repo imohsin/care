@@ -46,12 +46,14 @@ class OrganizationController extends Controller
 		if(is_null($organization)) {
 			return Redirect::action('OrganizationController@index');
 		} else {
-			$companies = DB::table('company')->where('organization_id',$id)->where('company.expired', '=', 0)->get();
-			$opencartInfos = DB::table('opencart_info')->where('organization_id',$id)->where('opencart_info.expired', '=', 0)->get();
-			$smtpInfos = DB::table('smtp_info')->where('organization_id',$id)->where('smtp_info.expired', '=', 0)->get();
+			//$companies = DB::table('company')->where('organization_id',$id)->where('company.expired', '=', 0)->get();
+			$shops = DB::table('company')->where('organization_id',$id)->where('company_type_id', '=', 1)->where('expired', '=', 0)->get();
+			$paymentProviders = DB::table('company')->where('organization_id',$id)->where('company_type_id', '=', 3)->where('expired', '=', 0)->get();
+			$opencartInfos = DB::table('opencart_info')->where('organization_id',$id)->where('expired', '=', 0)->get();
+			$smtpInfos = DB::table('smtp_info')->where('organization_id',$id)->where('expired', '=', 0)->get();
 
-			return view('organization', ['organization' => $organization,'companies' => $companies,
-						'opencartInfos' => $opencartInfos,'smtpInfos' => $smtpInfos,]);
+			return view('organization', ['organization' => $organization,'shops' => $shops,
+						'paymentProviders' => $paymentProviders,'opencartInfos' => $opencartInfos,'smtpInfos' => $smtpInfos,]);
 		}
     }
 

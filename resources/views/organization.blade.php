@@ -34,20 +34,20 @@
 <a class="btn btn-sm btn-default" href="{{ action('OrganizationController@index') }}">Back</a>
 
 <?php echo Form::close(); ?>
-	
+
 
 @if (isset($organization))
 <div class="panel panel-default">
-  <div class="panel-heading">Companies</div>
+  <div class="panel-heading">Shops</div>
   <table class="table table-striped">
-    @foreach ($companies as $company)
-      @if (isset($company->id))
+    @foreach ($shops as $shop)
+      @if (isset($shop->id))
         <tr>
-          <td class="col-xs-9">{{ $company->name }}</td>
+          <td class="col-xs-9">{{ $shop->name }}</td>
           <td class="col-xs-3">
             <div class="pull-right">
-              <a class="btn btn-sm btn-default" href="{{ action('CompanyController@edit', ['id' => $company->id]) }}">Edit</a>
-              <a class="btn btn-sm btn-default" href="{{ action('CompanyController@delete', ['id' => $company->id, 'org' => $organization->id]) }}">Delete</a>
+              <a class="btn btn-sm btn-default" href="{{ action('CompanyController@edit', ['id' => $shop->id]) }}">Edit</a>
+              <a class="btn btn-sm btn-default" href="{{ action('CompanyController@delete', ['id' => $shop->id, 'org' => $organization->id]) }}">Delete</a>
             </div>
           </td>
         </tr>
@@ -55,7 +55,29 @@
     @endforeach
   </table>
   <div class="panel-footer clearfix">
-    <a class="btn btn-sm btn-primary pull-right" href="{{ action('CompanyController@create', ['org' => $organization->id]) }}">Add</a>
+    <a class="btn btn-sm btn-primary pull-right" href="{{ action('CompanyController@create', ['org' => $organization->id, 'ct' => '1']) }}">Add</a>
+  </div>
+</div>
+
+<div class="panel panel-default">
+  <div class="panel-heading">Payment Providers</div>
+  <table class="table table-striped">
+    @foreach ($paymentProviders as $paymentProvider)
+      @if (isset($paymentProvider->id))
+        <tr>
+          <td class="col-xs-9">{{ $paymentProvider->name }}</td>
+          <td class="col-xs-3">
+            <div class="pull-right">
+              <a class="btn btn-sm btn-default" href="{{ action('CompanyController@edit', ['id' => $paymentProvider->id]) }}">Edit</a>
+              <a class="btn btn-sm btn-default" href="{{ action('CompanyController@delete', ['id' => $paymentProvider->id, 'org' => $organization->id]) }}">Delete</a>
+            </div>
+          </td>
+        </tr>
+      @endif
+    @endforeach
+  </table>
+  <div class="panel-footer clearfix">
+    <a class="btn btn-sm btn-primary pull-right" href="{{ action('CompanyController@create', ['org' => $organization->id, 'ct' => '3']) }}">Add</a>
   </div>
 </div>
 
