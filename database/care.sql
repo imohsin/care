@@ -91,22 +91,22 @@ CREATE TABLE IF NOT EXISTS `bank` (
   `type` varchar(100) NOT NULL,
   `company_id` int(11) NOT NULL,
   `expired` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
+  PRIMARY KEY (`id`),
+  KEY `company_id` (`company_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `bank`
 --
 
 INSERT INTO `bank` (`id`, `type`, `company_id`) VALUES
-(1, '03730565',1),
-(2, '83695662',1),
-(3, '93319857',1),
-(4, '93419657',1),
-(5, 'maimuna_78692110',2),
-(6, 'mashhood_',2),
-(7, 'tara_1234',2),
-(8, '03730565',1);
+(1, '03730565',13),
+(2, '83695662',13),
+(3, '93319857',13),
+(4, '93419657',13),
+(5, 'maimuna_78692110',14),
+(6, 'mashhood_',14),
+(7, 'tara_1234',14);
 
 -- --------------------------------------------------------
 
@@ -580,6 +580,26 @@ INSERT INTO `delivery` (`id`, `shop_id`, `courier_id`, `purchase_id`, `tracking_
 -- Table structure for table `import_paypal`
 --
 
+CREATE TABLE IF NOT EXISTS `import_barclays` (
+  `shop_id` int(11) NOT NULL,
+  `bank_id` int(11) NOT NULL,
+  `number` varchar(100) NOT NULL,
+  `date` varchar(10) DEFAULT NULL,
+  `account` varchar(20) DEFAULT NULL,
+  `amount` numeric(15,2) DEFAULT NULL,
+  `subcategory` varchar(20) DEFAULT NULL,
+  `memo` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`shop_id`,`bank_id`, `date`, `amount`, `subcategory`, `memo`),
+  KEY `shop_id` (`shop_id`),
+  KEY `bank_id` (`bank_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `import_paypal`
+--
+
 CREATE TABLE IF NOT EXISTS `import_paypal` (
   `shop_id` int(11) NOT NULL,
   `account_number` varchar(40) NOT NULL,
@@ -881,6 +901,13 @@ ALTER TABLE `coupon`
 ALTER TABLE `delivery`
   ADD CONSTRAINT `delivery_ibfk_2` FOREIGN KEY (`courier_id`) REFERENCES `company` (`id`),
   ADD CONSTRAINT `delivery_ibfk_1` FOREIGN KEY (`shop_id`) REFERENCES `company` (`id`);
+
+--
+-- Constraints for table `import_paypal`
+--
+ALTER TABLE `import_barclays`
+  ADD CONSTRAINT `import_barclays_ibfk_1` FOREIGN KEY (`shop_id`) REFERENCES `company` (`id`),
+  ADD CONSTRAINT `import_barclays_ibfk_2` FOREIGN KEY (`bank_id`) REFERENCES `bank` (`id`);
 
 --
 -- Constraints for table `import_paypal`
