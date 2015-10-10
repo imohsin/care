@@ -18,23 +18,23 @@ class ImportController extends Controller
     {
 	    $id = Auth::user()->id;
 	    $currentUser = User::find($id);
-			$shops = DB::table('company')
-		            ->where('expired', '=', 0)
-		            ->where('company_type_id', '=', 1)
-							 	->orderBy('name')
-            		->get();
-			$suppliers = DB::table('import_type')
-								 	->where('expired', '=', 0)
-								 	->orderBy('sort_order')
-								 	->get();
-		  return view('import', ['shops' => $shops, 'suppliers' => $suppliers]);
+		$shops = DB::table('company')
+				->where('expired', '=', 0)
+				->where('company_type_id', '=', 1)
+				->orderBy('name')
+				->get();
+		$templates = DB::table('import_type')
+				->where('expired', '=', 0)
+				->orderBy('sort_order')
+				->get();
+	  	return view('import', ['shops' => $shops, 'templates' => $templates]);
     }
 
     public function display($table, $id)
     {
 		$imports = DB::table($table)
-		 	->where('shop_id', '=', $id)
-		 	->get();
+				->where('shop_id', '=', $id)
+				->get();
 		$columns = Schema::getColumnListing($table);
         return view('import', ['imports' => $imports, 'columns' => $columns]);
     }
