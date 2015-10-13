@@ -187,37 +187,35 @@ CREATE TABLE IF NOT EXISTS `company` (
   PRIMARY KEY (`id`),
   KEY `organization_id` (`organization_id`),
   KEY `company_type_id` (`company_type_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=21 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
 
 --
 -- Dumping data for table `company`
 --
 
 INSERT INTO `company` (`id`, `organization_id`, `company_type_id`, `name`) VALUES
-(1,  1, 1, 'BBB @ GoGroopie'),
+(1,  1, 1, 'BBB @ Go Groopie'),
 (2,  1, 1, 'BBB @ Intu Order NB600'),
-(3,  1, 1, 'BBB @ Living Social'),
+(3,  1, 1, 'BBB @ Living Social UK'),
 (4,  1, 1, 'BBB @ Tap4deals'),
-(5,  1, 1, 'Maimuna @ Paypal'),
+(5,  1, 1, 'Maimuna110786 @ Paypal'),
 (6,  1, 1, 'Mashhood @ Paypal'),
-(7,  1, 1, 'Tara @ Paypal'),
-(8,  1, 1, 'WeRTech @ Groupon'),
+(7,  1, 1, 'Sania Zoya @ Paypal'),
+(8,  1, 1, 'Tara @ Paypal'),
+(9,  1, 1, 'WeRTech @ Groupon Ireland'),
+(10, 1, 1, 'WeRTech @ Groupon UK'),
 
-(9,  1, 2, 'Go Groopie'),
-(10, 1, 2, 'Groupon'),
-(11, 1, 2, 'Living Social'),
-(12, 1, 2, 'Tap Deals'),
+(11, 1, 2, 'Go Groopie'),
+(12, 1, 2, 'Groupon Ireland'),
+(13, 1, 2, 'Groupon UK'),
+(14, 1, 2, 'Living Social'),
+(15, 1, 2, 'Tap4Deals'),
 
-(13, 1, 3, 'Barclays 03730565'),
-(14, 1, 3, 'Barclays 83695662'),
-(15, 1, 3, 'Barclays 93319857'),
-(16, 1, 3, 'Barclays 93419657'),
+(16, 1, 3, 'Barclays'),
+(17, 1, 3, 'PayPal'),
 
-(17, 1, 3, 'PayPal maimuna_78692110'),
-(18, 1, 3, 'PayPal mashhood_'),
-(19, 1, 3, 'PayPal tara_1234'),
-
-(20, 1, 4, 'Royal Mail');
+(18, 1, 4, 'Amazon'),
+(19, 1, 4, 'Royal Mail');
 
 -- --------------------------------------------------------
 
@@ -653,12 +651,12 @@ CREATE TABLE IF NOT EXISTS `import_type` (
 INSERT INTO `import_type` (`id`, `name`, `table_name`, `sort_order`) VALUES
 (1, 'Barclays', 'import_barclays', 1),
 (2, 'PayPal', 'import_paypal', 2),
-(3, 'Delivery', 'import_delivery', 3);
+(3, 'Delivery', '', 3);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `import_type`
+-- Table structure for table `delivery_template`
 --
 
 CREATE TABLE IF NOT EXISTS `delivery_template` (
@@ -670,13 +668,125 @@ CREATE TABLE IF NOT EXISTS `delivery_template` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
-INSERT INTO `import_type` (`id`, `name`, `table_ext`, `sort_order`) VALUES
-(1, 'Go Groopie Template', '_go_groopie', 1),
-(2, 'Groupon Template', '_groupon', 2),
-(3, 'Intu Order Template', '_intu_order', 3),
-(4, 'Living Social Template', '_living_social', 4),
-(5, 'Tap4deals Template', '_tap4deals', 5),
-(6, 'Paypal Template', '_paypal', 6);
+INSERT INTO `delivery_template` (`id`, `name`, `table_ext`, `sort_order`) VALUES
+(1, 'Go Groopie Template', 'import_delivery_go_groopie', 1),
+(2, 'Groupon Template', 'import_delivery_groupon', 2),
+(3, 'Intu Order Template', 'import_delivery_intu_order', 3),
+(4, 'Living Social Template', 'import_delivery_living_social', 4),
+(5, 'Tap4deals Template', 'import_delivery_tap4deals', 5),
+(6, 'Paypal Template', 'import_delivery_paypal', 6);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `import_delivery_go_groopie`
+--
+
+CREATE TABLE IF NOT EXISTS `import_delivery_go_groopie` (
+  `product` varchar(100) NOT NULL,
+  `voucher_code` varchar(20) NOT NULL,
+  `deal_price` number(11,2) NOT NULL DEFAULT '0.00',
+  `first_name` varchar(100) NOT NULL,
+  `last_name` varchar(100) NOT NULL,
+  `address_1` varchar(100) NOT NULL,
+  `address_2` varchar(100) NOT NULL,
+  `city` varchar(100) NOT NULL,
+  `post_code` varchar(12) NOT NULL,
+  `country_code` varchar(5) NOT NULL,
+  PRIMARY KEY (`voucher_code`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `import_delivery_groupon`
+--
+
+CREATE TABLE IF NOT EXISTS `import_delivery_groupon` (
+  `fulfillment_line_item_id` varchar(100) NOT NULL,
+  `groupon_number` varchar(20) NOT NULL,
+  `order_date` number(11,2) NOT NULL DEFAULT '0.00',
+  `merchant_sku_item` varchar(100) NOT NULL,
+  `quantity_requested` varchar(100) NOT NULL,
+  `shipment_method_requested` varchar(100) NOT NULL,
+  `shipment_address_name` varchar(100) NOT NULL,
+  `shipment_address_street` varchar(100) NOT NULL,
+  `shipment_address_street_2` varchar(12) NOT NULL,
+  `shipment_address_city` varchar(5) NOT NULL,
+  `shipment_address_stat` varchar(5) NOT NULL,
+  `shipment_address_postal_code` varchar(5) NOT NULL,
+  `shipment_address_country` varchar(5) NOT NULL,
+  `gift` varchar(5) NOT NULL,
+  `gift_message` varchar(5) NOT NULL,
+  `quantity_shipped` varchar(5) NOT NULL,
+  `shipment_carrier` varchar(5) NOT NULL,
+  `shipment_method` varchar(5) NOT NULL,
+  `shipment_tracking_number` varchar(5) NOT NULL,
+  `ship_date` varchar(5) NOT NULL,
+  `groupon_sku` varchar(5) NOT NULL,
+  `custom_field_value` varchar(5) NOT NULL,
+  `permalink` varchar(5) NOT NULL,
+  `item_name` varchar(5) NOT NULL,
+  `vendor_id` varchar(5) NOT NULL,
+  `salesforce_deal_option_id` varchar(5) NOT NULL,
+  `groupon_cost` varchar(5) NOT NULL,
+  `billing_address_name` varchar(5) NOT NULL,
+  `billing_address_street` varchar(5) NOT NULL,
+  `billing_address_city` varchar(5) NOT NULL,
+  `billing_address_stat` varchar(5) NOT NULL,
+  `billing_address_postal_code` varchar(5) NOT NULL,
+  `billing_address_country` varchar(5) NOT NULL,
+  `purchase_order_number` varchar(5) NOT NULL,
+  `product_weight` varchar(5) NOT NULL,
+  `product_weight_unit` varchar(5) NOT NULL,
+  `product_length` varchar(5) NOT NULL,
+  `product_width` varchar(5) NOT NULL,
+  `product_height` varchar(5) NOT NULL,
+  `product_dimension_unit` varchar(5) NOT NULL,
+  `customer_phone` varchar(5) NOT NULL,
+  `incoterms` varchar(5) NOT NULL,
+  `hts_code` varchar(5) NOT NULL,
+  `3pl_name` varchar(5) NOT NULL,
+  `3pl_warehouse_location` varchar(5) NOT NULL,
+  `kitting_details` varchar(5) NOT NULL,
+  `sell_price` varchar(5) NOT NULL,
+  `deal_opportunity_id` varchar(5) NOT NULL,
+  `shipment_strategy` varchar(5) NOT NULL,
+  `fulfillment_method` varchar(5) NOT NULL,
+  `country_of_origin` varchar(5) NOT NULL,
+  `merchant_permalink` varchar(5) NOT NULL,
+  `feature_start_date` varchar(5) NOT NULL,
+  `feature_end_date` varchar(5) NOT NULL,
+  `bom_sku` varchar(5) NOT NULL,
+  PRIMARY KEY (`fulfillment_line_item_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+                                        
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `import_delivery_living_social`
+--
+
+CREATE TABLE IF NOT EXISTS `import_delivery_living_social` (
+  `purchase_id` int(11) NOT NULL,
+  `charged_at` varchar(16) NOT NULL,
+  `person_id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `purchase_state` varchar(20) NOT NULL,
+  `voucher_id` int(11) NOT NULL,
+  `voucher_code` varchar(20) NOT NULL,
+  `option` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `phone` varchar(50) NOT NULL,
+  `street_address_1` varchar(50) NOT NULL,
+  `street_address_2` varchar(50) NOT NULL,
+  `city` varchar(50) NOT NULL,
+  `state` varchar(50) NOT NULL,
+  `zip` varchar(12) NOT NULL,
+  PRIMARY KEY (`purchase_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
+                   
 
 -- --------------------------------------------------------
 --
@@ -898,7 +1008,7 @@ ALTER TABLE `delivery`
   ADD CONSTRAINT `delivery_ibfk_1` FOREIGN KEY (`shop_id`) REFERENCES `company` (`id`);
 
 --
--- Constraints for table `import_paypal`
+-- Constraints for table `import_barclays`
 --
 ALTER TABLE `import_barclays`
   ADD CONSTRAINT `import_barclays_ibfk_1` FOREIGN KEY (`shop_id`) REFERENCES `company` (`id`);

@@ -250,7 +250,11 @@ Route::group(array('prefix' => 'import', 'middleware' => 'auth'), function()
 {
 	Route::get('/{table}/{id}', 'ImportController@display');
 	// Handle form submissions.
-	Route::post('/', 'ImportController@handleCreate');
+  Route::post('/', 'ImportController@handleCreate');
+  Route::post('/', 'ImportController@handleCreateBarclays');
+  Route::post('/', 'ImportController@handleCreatePaypal');
+  Route::post('/', 'ImportController@handleCreateDealProvider');
+  Route::post('/', 'ImportController@handleCreateDelivery');
 });
 
 Route::get('export', array(
