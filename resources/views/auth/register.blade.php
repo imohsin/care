@@ -23,6 +23,16 @@
 <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
 <label for="password_confirmation" class="sr-only">Password</label>
 <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="Confirm Password" required>
+@if(isset($orgs))
+<label for="name" class="sr-only">Organization</label>
+<select class="form-control" name="organization_id">
+	<option value="">-- Choose Oranization --</option>
+	@foreach($orgs as $org)
+		<option value="{{$org->id}}">{{$org->long_name}}</option>
+	@endforeach
+</select>
+@endif
+</p>
 <button class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
 
 <?php echo Form::close(); ?>

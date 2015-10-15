@@ -1058,6 +1058,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `email` varchar(49) NOT NULL,
   `password` varchar(100) NOT NULL,
   `organization_id` int(11) DEFAULT NULL,
+  `confirmed` tinyint(1) NOT NULL DEFAULT '0',
   `remember_token` varchar(100) DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
@@ -1069,7 +1070,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `organization_id`, `remember_token`, `updated_at`, `created_at`, `expired`) VALUES
-(1, 'Imran Mohsin', 'imran.mohsin@gmail.com', '$2y$10$AwnvVnsnSiCERHfycfNpkeOLNnq7EAKghqIVrefRh0M9/fpTOZzAu', 1, NULL, NULL, '2015-10-09 08:12:03', 0),
+(1, 'Imran Mohsin', 'imohsins@chmail.ir', '$2y$10$IfYmsWegKWmsozAZr94.LuLb9weB6LziEya3S7pIChFOVxnEarGGK', 1, NULL, NULL, '2015-10-09 08:12:03', 0),
 (2, 'Mohsin Shah', 'mohsin.shah@gmail.com', '$2y$10$AwnvVnsnSiCERHfycfNpkeOLNnq7EAKghqIVrefRh0M9/fpTOZzAu', 1, NULL, NULL, '2015-10-09 08:12:03', 0);
 
 --
