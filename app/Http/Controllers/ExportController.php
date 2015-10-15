@@ -11,7 +11,7 @@ use Schema;
 use Care\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
 
-class ImportController extends Controller
+class ExportController extends Controller
 {
 
   public function create()
@@ -120,7 +120,7 @@ class ImportController extends Controller
 					DB::insert($insert);
 				}
 
-				return Redirect::action('ImportController@display', ['table' => $table, 'id_prefix' => $id_prefix, 'id' => $id]);
+				return Redirect::action('ExportController@display', ['table' => $table, 'id_prefix' => $id_prefix, 'id' => $id]);
 
 		  }//file exists
 
