@@ -3,6 +3,8 @@
 namespace Care\Http\Controllers;
 
 use DB;
+use Auth;
+use Care\User;
 use Input;
 use Care\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
@@ -16,9 +18,11 @@ class OrganizationController extends Controller
      */
     public function index()
     {
-
+	    $uid = Auth::user()->id;
+	    $currentUser = User::find($uid);
 		$organizations = DB::table('organization')
 		            ->where('expired', '=', 0)
+		            ->where('organization.id', '=',	$currentUser->organization_id)
             		->orderBy('organization.long_name')
             		->get();
 		$companies = DB::table('company')

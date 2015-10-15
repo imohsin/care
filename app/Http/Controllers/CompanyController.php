@@ -24,8 +24,8 @@ class CompanyController extends Controller
 
     public function edit($id)
     {
-	    $id = Auth::user()->id;
-	    $currentUser = User::find($id);
+	    $uid = Auth::user()->id;
+	    $currentUser = User::find($uid);
 		$company = DB::table('company')->where('id',$id)->first();
 		$orgs = DB::table('organization')->select('id', 'long_name')
 		 	->where('organization.expired', '=', 0)

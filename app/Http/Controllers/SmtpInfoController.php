@@ -3,6 +3,8 @@
 namespace Care\Http\Controllers;
 
 use DB;
+use Auth;
+use Care\User;
 use Input;
 use Care\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
@@ -17,9 +19,12 @@ class SmtpInfoController extends Controller
 
     public function edit($id)
     {
+	    $uid = Auth::user()->id;
+	    $currentUser = User::find($uid);
 		$smtpinfo = DB::table('smtp_info')->where('id',$id)->first();
 		$orgs = DB::table('organization')->select('id', 'long_name')
 		 	->where('organization.expired', '=', 0)
+		 	->where('organization.id', '=',	$currentUser->organization_id)
 		 	->orderBy('organization.long_name')
 		 	->get();
         return view('smtpinfo', ['smtpinfo' => $smtpinfo,'orgs' => $orgs]);
