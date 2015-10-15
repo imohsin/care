@@ -20,11 +20,19 @@ class OrganizationController extends Controller
     {
 	    $uid = Auth::user()->id;
 	    $currentUser = User::find($uid);
-		$organizations = DB::table('organization')
-		            ->where('expired', '=', 0)
-		            ->where('organization.id', '=',	$currentUser->organization_id)
-            		->orderBy('organization.long_name')
-            		->get();
+	    if($currentUser->organization_id == config('constants.SUPER_USER')) {
+			$organizations = DB::table('organization')
+				->where('organization.expired', '=', 0)
+				->orderBy('organization.long_name')
+				->get();
+		} else {
+			$organizations = DB::table('organization')
+				->where('organization.expired', '=', 0)
+				->where('organization.id', '=',	$currentUser->organization_id)
+				->orderBy('organization.long_name')
+				->get();
+		}
+
 		$companies = DB::table('company')
                     ->where('expired', '=', 0)
             		->get();

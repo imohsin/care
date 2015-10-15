@@ -18,11 +18,20 @@ class ExportController extends Controller
   {
 		$uid = Auth::user()->id;
 		$currentUser = User::find($uid);
-		$organizations = DB::table('organization')
-			->where('expired', '=', 0)
-			->where('id', '=', $currentUser->organization_id)
-			->orderBy('short_name')
-			->lists('short_name','id');
+	    if($currentUser->organization_id == config('constants.SUPER_USER')) {
+			$organizations = DB::table('organization')
+				->where('expired', '=', 0)
+				->orderBy('organization.long_name')
+				->lists('short_name','id');
+		} else {
+			$organizations = DB::table('organization')
+				->where('expired', '=', 0)
+				->where('organization.id', '=',	$currentUser->organization_id)
+				->orderBy('organization.long_name')
+				->lists('short_name','id');
+		}
+
+
 		$shops = DB::table('company')
 			->where('expired', '=', 0)
 			->where('company_type_id', '=', 1)

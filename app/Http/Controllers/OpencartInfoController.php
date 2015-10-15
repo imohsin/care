@@ -22,11 +22,19 @@ class OpencartInfoController extends Controller
 	    $uid = Auth::user()->id;
 	    $currentUser = User::find($uid);
 		$opencart = DB::table('opencart_info')->where('id',$id)->first();
-		$orgs = DB::table('organization')->select('id', 'long_name')
-		 	->where('organization.expired', '=', 0)
-		 	->where('organization.id', '=',	$currentUser->organization_id)
-		 	->orderBy('organization.long_name')
-		 	->get();
+	    if($currentUser->organization_id == config('constants.SUPER_USER')) {
+			$orgs = DB::table('organization')
+				->where('organization.expired', '=', 0)
+				->orderBy('organization.long_name')
+				->get();
+		} else {
+			$orgs = DB::table('organization')
+				->where('organization.expired', '=', 0)
+				->where('organization.id', '=',	$currentUser->organization_id)
+				->orderBy('organization.long_name')
+				->get();
+		}
+
         return view('opencart', ['opencart' => $opencart, 'orgs' => $orgs]);
     }
 
