@@ -43,10 +43,10 @@
     </tbody>
     <tfooter>
       <tr>
-        <td colspan="100%" align="right"><a class="btn btn-lg btn-primary" href="{{ action('DeliveryController@create') }}">Add</a></td>
+        <td colspan="100%" align="right"><a class="btn btn-sm btn-primary pull-right" href="{{ action('DeliveryController@create') }}">Add</a></td>
       </tr>
     </tfooter>
   </table>
 </div>
-    
+
 @stop
