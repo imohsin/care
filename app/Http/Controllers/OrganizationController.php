@@ -18,6 +18,7 @@ class OrganizationController extends Controller
      */
     public function index()
     {
+		$superUser=false;
 	    $uid = Auth::user()->id;
 	    $currentUser = User::find($uid);
 	    if($currentUser->organization_id == config('constants.SUPER_USER')) {
@@ -25,6 +26,7 @@ class OrganizationController extends Controller
 				->where('organization.expired', '=', 0)
 				->orderBy('organization.long_name')
 				->get();
+				$superUser=true;
 		} else {
 			$organizations = DB::table('organization')
 				->where('organization.expired', '=', 0)
@@ -44,7 +46,7 @@ class OrganizationController extends Controller
             		->get();
 
         return view('organizations', ['organizations' => $organizations,'companies' => $companies,
-        							'ocInfos' => $ocInfos,'smtpInfos' => $smtpInfos]);
+        							'ocInfos' => $ocInfos,'smtpInfos' => $smtpInfos, 'superUser' => $superUser]);
     }
 
     public function create()
@@ -65,7 +67,7 @@ class OrganizationController extends Controller
 			$smtpInfos = DB::table('smtp_info')->where('organization_id',$id)->where('expired', '=', 0)->get();
 
 			return view('organization', ['organization' => $organization,'shops' => $shops,
-						'paymentProviders' => $paymentProviders,'opencartInfos' => $opencartInfos,'smtpInfos' => $smtpInfos,]);
+						'paymentProviders' => $paymentProviders,'opencartInfos' => $opencartInfos,'smtpInfos' => $smtpInfos]);
 		}
     }
 

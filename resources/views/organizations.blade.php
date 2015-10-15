@@ -54,7 +54,9 @@
     </tbody>
   </table>
   <div class="panel-footer clearfix">
+  @if($superUser)
     <a class="btn btn-sm btn-primary pull-right" href="{{ action('OrganizationController@create') }}">Add</a>
+  @endif
   </div>
 </div>
 @stop
