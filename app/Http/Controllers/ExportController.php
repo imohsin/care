@@ -16,12 +16,11 @@ class ExportController extends Controller
 
   public function create()
   {
-    $id = Auth::user()->id;
-    //$organization_id = Auth::user()->organization_id;
-    $currentUser = User::find($id);
+		$uid = Auth::user()->id;
+		$currentUser = User::find($uid);
 		$organizations = DB::table('organization')
 			->where('expired', '=', 0)
-			->where('id', '=', 1)
+			->where('id', '=', $currentUser->organization_id)
 			->orderBy('short_name')
 			->lists('short_name','id');
 		$shops = DB::table('company')
@@ -112,7 +111,7 @@ class ExportController extends Controller
 				while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
 					if($firstline) { $firstline = false; continue; }
 					if($import_type == 'barclays') {
-						if($secondline) { $secondline = false; continue; }						
+						if($secondline) { $secondline = false; continue; }
 					}
 					$insert = sprintf(
 						"INSERT IGNORE INTO %s VALUES(%s, %s, %s)" , addslashes($table),
@@ -125,7 +124,7 @@ class ExportController extends Controller
 		  }//file exists
 
 	  }//validation
-	  	
+
   }
 
 	private function getColumnValueData($data) {
