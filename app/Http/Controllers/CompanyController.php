@@ -3,8 +3,6 @@
 namespace Care\Http\Controllers;
 
 use DB;
-use Auth;
-use Care\User;
 use Input;
 use Care\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
@@ -14,6 +12,10 @@ class CompanyController extends Controller
 
     public function create($org)
     {
+		/*$orgs = DB::table('organization')->select('id', 'long_name')
+			->where('organization.expired', '=', 0)
+			->orderBy('organization.long_name')
+			->get();*/
 		$cotypes = DB::table('company_type')->select('id', 'type')
 			->where('company_type.expired', '=', 0)
 			->orderBy('company_type.id')
@@ -24,12 +26,9 @@ class CompanyController extends Controller
 
     public function edit($id)
     {
-	    $id = Auth::user()->id;
-	    $currentUser = User::find($id);
 		$company = DB::table('company')->where('id',$id)->first();
 		$orgs = DB::table('organization')->select('id', 'long_name')
 		 	->where('organization.expired', '=', 0)
-		 	->where('organization.id', '=',	$currentUser->organization_id)
 		 	->orderBy('organization.long_name')
 		 	->get();
 		$cotypes = DB::table('company_type')->select('id', 'type')

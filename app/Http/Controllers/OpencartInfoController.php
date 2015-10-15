@@ -3,8 +3,6 @@
 namespace Care\Http\Controllers;
 
 use DB;
-use Auth;
-use Care\User;
 use Input;
 use Care\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Redirect;
@@ -14,17 +12,18 @@ class OpencartInfoController extends Controller
 
     public function create($org)
     {
+		/*$orgs = DB::table('organization')->select('id', 'long_name')
+		 	->where('organization.expired', '=', 0)
+		 	->orderBy('organization.long_name')
+		 	->get();*/
         return view('opencart', ['org' => $org]);
     }
 
     public function edit($id)
     {
-	    $id = Auth::user()->id;
-	    $currentUser = User::find($id);
 		$opencart = DB::table('opencart_info')->where('id',$id)->first();
 		$orgs = DB::table('organization')->select('id', 'long_name')
 		 	->where('organization.expired', '=', 0)
-		 	->where('organization.id', '=',	$currentUser->organization_id)
 		 	->orderBy('organization.long_name')
 		 	->get();
         return view('opencart', ['opencart' => $opencart, 'orgs' => $orgs]);

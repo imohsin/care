@@ -33,8 +33,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `name` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL UNIQUE,
   `password` varchar(100) NOT NULL,
-  `organization_id` int(11) NOT NULL,
-  `confirmed` tinyint(1) NOT NULL DEFAULT '0',
+  `organization_id` int(11), 
   `remember_token` varchar(100) DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
@@ -43,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `organization_id` ) VALUES
-(1, 'Imran Mohsin', 'imohsins@chmail.ir', '$2y$10$IfYmsWegKWmsozAZr94.LuLb9weB6LziEya3S7pIChFOVxnEarGGK', 1 ),
+(1, 'Imran Mohsin', 'imran.mohsin@gmail.com', '$2y$10$AwnvVnsnSiCERHfycfNpkeOLNnq7EAKghqIVrefRh0M9/fpTOZzAu', 1 ),
 (2, 'Mohsin Shah',  'mohsin.shah@gmail.com',  '$2y$10$AwnvVnsnSiCERHfycfNpkeOLNnq7EAKghqIVrefRh0M9/fpTOZzAu', 1 );
 
 -- --------------------------------------------------------
