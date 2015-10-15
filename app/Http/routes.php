@@ -248,13 +248,14 @@ Route::get('import', array(
 
 Route::group(array('prefix' => 'import', 'middleware' => 'auth'), function()
 {
-	Route::get('/{table}/{id}', 'ImportController@display');
+	Route::get('/{table}/{id_prefix}/{id}', 'ImportController@display');
 	// Handle form submissions.
-	Route::post('/', 'ImportController@handleCreate');
+  Route::post('/', 'ImportController@handleCreate');
 });
 
 Route::get('export', array(
     'as' => 'export',
+    'uses' => 'ExportController@create',
     'middleware' => 'auth',
     function() {
         return View::make('export');
