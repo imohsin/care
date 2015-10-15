@@ -2,8 +2,6 @@
 
 namespace Care\Http\Controllers;
 
-use Auth;
-use Care\User;
 use DB;
 use Input;
 use Validator;
@@ -16,8 +14,6 @@ class ImportController extends Controller
 
     public function create()
     {
-	    $id = Auth::user()->id;
-	    $currentUser = User::find($id);
 		$shops = DB::table('company')
 				->where('expired', '=', 0)
 				->where('company_type_id', '=', 1)

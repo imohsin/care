@@ -50,6 +50,7 @@ class AuthController extends Controller
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed|min:6',
             'password_confirmation' => 'required|min:6',
+            'organization_id' => 'required',
         ]);
     }
 
@@ -65,6 +66,7 @@ class AuthController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'organization_id' => $data['organization_id']
         ]);
     }
 
@@ -87,12 +89,12 @@ class AuthController extends Controller
 		//echo('password after = ' . $encrypted . '<br/>');
 		//echo('done');
 
-		if (Auth::attempt(array('email' => Input::get('email'), 'password' => Input::get('password')), Input::get('remember')))
+		if (Auth::attempt(array('email' => Input::get('email'), 'password' => Input::get('password'), 'confirmed' => 1), Input::get('remember')))
 		{
 			return Redirect::intended('/');
 		} else {
 			return Redirect::to('/auth/login')->withErrors([
-		            'email' => 'The credentials you entered did not match our records. Try again?',
+		            'email' => 'Either the credentials you entered did not match our records or you have not been confirmed yet.  Please try again or contact the Administrator.',
     	    ]);
 		}
 	}
@@ -102,7 +104,12 @@ class AuthController extends Controller
 	*/
 	public function register()
 	{
-		return view('auth.register');
+		$orgs = DB::table('organization')
+			->where('expired', '=', 0)
+			->orderBy('short_name')
+			->get();
+
+		return view('auth.register', ['orgs' => $orgs]);
 	}
 
 	/*
@@ -112,7 +119,8 @@ class AuthController extends Controller
     {
 		//validate input
 		$validation = $this->validator(array('name' => Input::get('name'),'email' => Input::get('email'),
-								'password' => Input::get('password'),'password_confirmation' => Input::get('password_confirmation')));
+								'password' => Input::get('password'),'password_confirmation' => Input::get('password_confirmation'),
+								'organization_id' => Input::get('organization_id')));
 		if($validation->fails()) {
 			return redirect('/auth/register')->withInput()->withErrors($validation);
 		}
@@ -120,13 +128,14 @@ class AuthController extends Controller
 		//create user
 		$user = $this->create(array('name' => Input::get('name'),
 								'email' => Input::get('email'),
-								'password' => Input::get('password')));
+								'password' => Input::get('password'),
+								'organization_id' => Input::get('organization_id')));
 		if(!$user) {
 			return Redirect::to('/auth/register')->withInput()->withErrors([
 					            'name' => 'The registration was unsuccessful.  Try again?',
     	    ]);
 		} else {
-			Auth::login($user);
+			//Auth::login($user);
 			return Redirect::intended('/');
 		}
 
